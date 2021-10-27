@@ -38,7 +38,6 @@ public class PersonToContact implements Serializable {
 	@Email
 	private String email;
 	
-	@SuppressWarnings("unused")
 	private String phoneNumber;
 	
 	@ManyToOne

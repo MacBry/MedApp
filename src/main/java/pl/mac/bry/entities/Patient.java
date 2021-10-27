@@ -40,7 +40,6 @@ public class Patient implements Serializable {
 	@Length(min =2, max = 20)
 	private String lastName;
 	
-	@SuppressWarnings("unused")
 	private String pesel;
 	
 	@OneToOne

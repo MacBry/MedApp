@@ -30,16 +30,14 @@ public class PatientDetails implements Serializable {
 	@Column(name = "Patient_Detail_ID")
 	private long id;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "patientDetails", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)// to remove "cannot simultaneously fetch multiple bags"
 	private List<PersonToContact> personsToContact;
-	
-	@SuppressWarnings("unused")
+
 	@OneToMany(mappedBy = "patientDetails", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)// to remove "cannot simultaneously fetch multiple bags"
 	private List<Address> patientAdress = new ArrayList<Address>();
 	
-	
-	@SuppressWarnings("unused")
 	private String phoneNumber;
 	
 	@Email

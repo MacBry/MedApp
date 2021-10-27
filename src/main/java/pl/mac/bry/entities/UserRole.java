@@ -15,9 +15,8 @@ public class UserRole {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@SuppressWarnings("unused")
 	private String role;
-	@SuppressWarnings("unused")
+
 	private String description;
 	
 

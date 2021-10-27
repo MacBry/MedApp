@@ -22,18 +22,13 @@ public class Address implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Address_ID")
 	private long id;
-	
-	
-	@SuppressWarnings("unused")
+		
 	private String country;
 	
-	@SuppressWarnings("unused")
 	private String city;
-	
-	@SuppressWarnings("unused")
+		
 	private String street;
-	
-	@SuppressWarnings("unused")
+
 	private String zipCode;
 	
 	@ManyToOne

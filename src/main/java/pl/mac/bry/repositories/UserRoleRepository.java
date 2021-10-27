@@ -6,4 +6,5 @@ import pl.mac.bry.entities.UserRole;
 
 public interface UserRoleRepository extends CrudRepository<UserRole, Long> {
 
+	UserRole findByRole(String role);
 }

@@ -24,10 +24,8 @@ public class Sample implements Serializable {
 	@Column(name = "sample_ID")
 	private long id;
 	
-	@SuppressWarnings("unused")
 	private LocalDateTime colectionDateTime;
 	
-	@SuppressWarnings("unused")
 	private SampleType sampleType;
 	
 	@ManyToOne
