@@ -4,7 +4,7 @@ import pl.mac.bry.entities.PersonToContact;
 
 public interface PersonToContactService {
 
-	PersonToContact findById(long id);
+	PersonToContact findPersonToContactById(long id);
 	
 	Iterable<PersonToContact> findPersonToContactByFirstName(String firstName);
 	

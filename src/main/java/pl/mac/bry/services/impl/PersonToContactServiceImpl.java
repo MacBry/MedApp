@@ -19,57 +19,50 @@ public class PersonToContactServiceImpl implements PersonToContactService {
 	}
 
 	@Override
-	public PersonToContact findById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public PersonToContact findPersonToContactById(long id) {
+		return personToContactRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid Person to contact id: " + id));
 	}
 
 	@Override
 	public Iterable<PersonToContact> findPersonToContactByFirstName(String firstName) {
-		// TODO Auto-generated method stub
-		return null;
+		return personToContactRepository.findByFirstName(firstName);
 	}
 
 	@Override
 	public Iterable<PersonToContact> findPersonToContactByLastName(String lastName) {
-		// TODO Auto-generated method stub
-		return null;
+		return personToContactRepository.findByLastName(lastName);
 	}
 
 	@Override
 	public Iterable<PersonToContact> findPersonToContactByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		return personToContactRepository.findByEmail(email);
 	}
 
 	@Override
 	public Iterable<PersonToContact> findPersonToContactByPhoneNumber(String phoneNumber) {
-		// TODO Auto-generated method stub
-		return null;
+		return personToContactRepository.findByPhoneNumber(phoneNumber);
 	}
 
 	@Override
 	public Iterable<PersonToContact> getAllPersonsToContact() {
-		// TODO Auto-generated method stub
-		return null;
+		return personToContactRepository.findAll();
 	}
 
 	@Override
 	public void addPersonToContact(PersonToContact personToContact) {
-		// TODO Auto-generated method stub
-
+		personToContactRepository.save(personToContact);
 	}
 
 	@Override
 	public void updatePersonToContact(PersonToContact personToContact) {
-		// TODO Auto-generated method stub
-
+		personToContactRepository.save(personToContact);
 	}
 
 	@Override
 	public void deletePersonToContact(long id) {
-		// TODO Auto-generated method stub
-
+		PersonToContact personToContact =  findPersonToContactById(id);
+		personToContactRepository.delete(personToContact);
 	}
 
 }
