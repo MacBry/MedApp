@@ -14,6 +14,4 @@ public interface PersonToContactRepository extends CrudRepository<PersonToContac
 	
 	Iterable<PersonToContact> findByPhoneNumber(String phoneNumber);
 	
-	Iterable<PersonToContact> getAllPersonsToContact();
-	
 }

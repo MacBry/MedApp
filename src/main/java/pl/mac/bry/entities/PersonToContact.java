@@ -41,7 +41,7 @@ public class PersonToContact implements Serializable {
 	private String phoneNumber;
 	
 	@ManyToOne
-	@JoinColumn(name = "patient_detail_id")
+	@JoinColumn(name = "patient_details_id")
 	private PatientDetails patientDetails;
 
 }

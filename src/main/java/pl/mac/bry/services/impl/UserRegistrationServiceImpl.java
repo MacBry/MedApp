@@ -1,5 +1,6 @@
 package pl.mac.bry.services.impl;
 
+import org.audit4j.core.annotation.Audit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 	}
 
 	@Override
+	@Audit(action = "UserRegistrationServiceImpl.addWithDefaoultRole()")
 	public void addWithDefaoultRole(User user) {
 		UserRole defaultRole = roleRepository.findByRole(UserRoles.DEFAULT_ROLE.getDescription());
 		user.getRoles().add(defaultRole);
