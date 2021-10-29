@@ -47,6 +47,12 @@ public class UserServiceImpl implements UserService {
 	public Iterable<User> FindUserByLastName(String lastName) {
 		return userRepository.findByLastName(lastName);
 	}
+	
+	@Override
+	@Audit(action = "UserServiceImpl.FindUserByFirstNameAndLastName()")
+	public Iterable<User> FindUserByFirstNameAndLastName(String firstName, String lastName) {
+		return userRepository.findByFirstNameAndLastName(firstName, lastName);
+	}
 
 	@Override
 	@Audit(action = "UserServiceImpl.getAllUsers()")
@@ -79,5 +85,7 @@ public class UserServiceImpl implements UserService {
 		String passwordHash = passwordEncoder.encode(user.getPassword());
 		user.setPassword(passwordHash);
 	}
+
+	
 
 }

@@ -15,7 +15,6 @@ import org.audit4j.core.layout.SimpleLayout;
 import org.audit4j.handler.db.DatabaseAuditHandler;
 import org.audit4j.integration.spring.AuditAspect;
 import org.audit4j.integration.spring.SpringAudit4jConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -71,7 +70,8 @@ public class AuditConfiguration {
         SpringAudit4jConfig audit4jConfig = new SpringAudit4jConfig();
         Map<String, String> props = new HashMap<>();
         props.put("log.file.location", ".");
-        List<Handler> handlers = new ArrayList<>();
+        @SuppressWarnings("rawtypes")
+		List<Handler> handlers = new ArrayList<>();
         handlers.add(consoleAuditHandler());
         handlers.add(fileAuditHandler());
         handlers.add(databaseAuditHandler());

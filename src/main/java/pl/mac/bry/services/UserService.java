@@ -12,6 +12,8 @@ public interface UserService {
 	
 	Iterable<User> FindUserByLastName(String lastName);
 	
+	Iterable<User> FindUserByFirstNameAndLastName(String firstName, String lastName);
+	
 	Iterable<User> getAllUsers();
 	
 	void addUser(User user);

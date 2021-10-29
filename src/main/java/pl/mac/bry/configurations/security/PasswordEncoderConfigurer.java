@@ -1,3 +1,4 @@
+
 package pl.mac.bry.configurations.security;
 
 import org.springframework.context.annotation.Bean;

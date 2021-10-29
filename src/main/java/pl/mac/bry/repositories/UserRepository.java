@@ -13,4 +13,6 @@ public interface UserRepository extends CrudRepository<User,Long>{
 	Iterable<User> findByFirstName(String firstName);
 	
 	Iterable<User> findByLastName(String lastName);
+	
+	Iterable<User> findByFirstNameAndLastName(String firstName, String lastName);
 }
