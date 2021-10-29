@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.mac.bry.entities.Patient;
+import pl.mac.bry.entities.PatientDetails;
 import pl.mac.bry.services.PatientService;
 
 @RestController
@@ -55,6 +56,11 @@ public class PatientRESTController {
 	@GetMapping("/pesel/{pesel}")
 	public Patient GetPatientByPesel(@PathVariable String pesel) {
 		return patientService.findPatientByPesel(pesel);
+	}
+	
+	@GetMapping("/id{id}/details")
+	public PatientDetails GetAllPatientDetails(@PathVariable long id) {
+		return patientService.findPatientById(id).getPatientDetails();
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
