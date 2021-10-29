@@ -37,11 +37,24 @@ public class PatientServiceImpl implements PatientService {
 	public Iterable<Patient> findPatientByLastName(String lastName) {
 		return patientRepository.findByLastName(lastName);
 	}
+	
+	@Override
+	@Audit(action = "PatientServiceImpl.findPatientByFirstNameAndLastName()")
+	public Iterable<Patient> findPatientByFirstNameAndLastName(String firstName, String lastName) {
+		return patientRepository.findByFirstNameAndLastName(firstName, lastName);
+	}
 
 	@Override
 	@Audit(action = "PatientServiceImpl.getAllPatients()")
 	public Iterable<Patient> getAllPatients() {
 		return patientRepository.findAll();
+	}
+	
+	@Override
+	@Audit(action = "PatientServiceImpl.findPatientByPesel()")
+	public Patient findPatientByPesel(String pesel) {	
+		return patientRepository.findByPesel(pesel)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid patient pesel: " + pesel));
 	}
 
 	@Override
@@ -62,5 +75,9 @@ public class PatientServiceImpl implements PatientService {
 		Patient patient = findPatientById(id);
 		patientRepository.delete(patient);
 	}
+
+	
+
+	
 
 }

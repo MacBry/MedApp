@@ -2,6 +2,7 @@ package pl.mac.bry.controllers.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +41,12 @@ public class UserRESTController {
 		return userService.FindUserByLastName(lastName);
 	}
 	
+	@GetMapping("/firstName/{firstName}/lastName/{lastName}")
+	public Iterable<User> getUsersByFirstAndLastName(@PathVariable String firstName,
+			@PathVariable String lastName){
+		return userService.FindUserByFirstNameAndLastName(firstName, lastName); 
+	}
+	
 	@GetMapping("/mail/{mail}")
 	public User getUserByMail(@PathVariable String mail) {
 		return userService.findUserByMail(mail);
@@ -58,5 +65,10 @@ public class UserRESTController {
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateUser(@RequestBody User user) {
 		userService.updateUser(user);
+	}
+	
+	@DeleteMapping("/delete/id/{id}")
+	public void deleteUser(@PathVariable long id) {
+		userService.deleteUser(id);
 	}
 }
