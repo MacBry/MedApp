@@ -1,5 +1,7 @@
 package pl.mac.bry.controllers.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,32 +33,49 @@ public class UserRESTController {
 		return userService.getAllUsers();
 	}
 	
-	@GetMapping("/first-name/{firstName}")
-	public Iterable<User> getUsersByFirstName(@PathVariable String firstName){
-		return userService.FindUserByFirstName(firstName);
-	}
-	
-	@GetMapping("/last-name/{lastName}")
-	public Iterable<User> getUsersByLastName(@PathVariable String lastName){
-		return userService.FindUserByLastName(lastName);
-	}
-	
-	@GetMapping("/first-name/{firstName}/last-name/{lastName}")
-	public Iterable<User> getUsersByFirstAndLastName(@PathVariable String firstName,
-			@PathVariable String lastName){
-		return userService.FindUserByFirstNameAndLastName(firstName, lastName); 
-	}
-	
-	@GetMapping("/mail/{mail}")
-	public User getUserByMail(@PathVariable String mail) {
-		return userService.findUserByMail(mail);
-	}
-	
 	@GetMapping("/id/{id}")
 	public User getUserById(@PathVariable long id) {
 		return userService.findUserById(id);
 	}
 	
+	@GetMapping("/id/{id}/first-name")
+	public String getUserFirstName(@PathVariable long id) {
+		return userService.findUserById(id).getFirstName();
+	}
+	
+	@GetMapping("/first-names")
+	public List<String> getAllusersFirstNames() {
+		List<User> allUsers = (List<User>) userService.getAllUsers();
+		return userService.getValues(String.class, allUsers, User::getFirstName);
+	}
+	
+	@GetMapping("/id/{id}/last-name")
+	public String getUserLastName(@PathVariable long id) {
+		return userService.findUserById(id).getLastName();
+	}
+	
+	@GetMapping("/last-names")
+	public List<String> getAllUsersLastNames(){
+		List<User> allUsers = (List<User>) userService.getAllUsers();
+		return userService.getValues(String.class, allUsers, User::getLastName);
+	}
+	
+	@GetMapping("/id/{id}/email")
+	public String getUserEmail(@PathVariable long id) {
+		return userService.findUserById(id).getEmail();
+	}
+	
+	@GetMapping("/emails")
+	public List<String> getAllUsersEmails(){
+		List<User> allUsers = (List<User>) userService.getAllUsers();
+		return userService.getValues(String.class, allUsers, User::getEmail);
+	}
+	
+	@GetMapping("/id/{id}/password")
+	public String getUserPassword(@PathVariable long id) {
+		return userService.findUserById(id).getPassword();
+	}
+		
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void saveUser(@RequestBody User user){
 		userService.addUser(user);

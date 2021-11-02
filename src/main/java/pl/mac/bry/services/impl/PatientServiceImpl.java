@@ -2,7 +2,6 @@ package pl.mac.bry.services.impl;
 
 import java.util.List;
 import java.util.function.Function;
-
 import java.util.stream.Collectors;
 
 import org.audit4j.core.annotation.Audit;
@@ -83,6 +82,7 @@ public class PatientServiceImpl implements PatientService {
 
 	
 	@Override
+	@Audit(action = "PatientServiceImpl.getValues()")
 	public <T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor) {
 	    return listToExtractFrom.stream().map(extractor).collect(Collectors.toList());
 	  }

@@ -1,5 +1,8 @@
 package pl.mac.bry.services;
 
+import java.util.List;
+import java.util.function.Function;
+
 import pl.mac.bry.entities.User;
 
 public interface UserService {
@@ -21,5 +24,7 @@ public interface UserService {
 	void updateUser(User user);
 	
 	void deleteUser(long id);
+
+	<T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor);
 	
 }
