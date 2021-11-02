@@ -10,6 +10,8 @@ public interface PersonToContactService {
 	
 	Iterable<PersonToContact> findPersonToContactByLastName(String lastName);
 	
+	Iterable<PersonToContact> findPersonToContactByFirstNameAndLastName(String firstName, String lastName);
+	
 	Iterable<PersonToContact> findPersonToContactByEmail(String email);
 	
 	Iterable<PersonToContact> findPersonToContactByPhoneNumber(String phoneNumber);

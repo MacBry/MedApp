@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.mac.bry.entities.Address;
 import pl.mac.bry.entities.PatientDetails;
+import pl.mac.bry.entities.PersonToContact;
 import pl.mac.bry.services.PatientDetailsService;
 
 
 @RestController
-@RequestMapping("/api/patientDetails")
+@RequestMapping("/api/patient-details")
 public class PatientDetailsRESTController {
 	
 	private PatientDetailsService patientDetailsService;
@@ -32,7 +34,7 @@ public class PatientDetailsRESTController {
 		return patientDetailsService.getAllPatientDetails();
 	}
 	
-	@GetMapping("/phoneNumber/{phoneNumber}")
+	@GetMapping("/phone-number/{phoneNumber}")
 	public Iterable<PatientDetails> getPatientDetailsByPhoneNumber(@PathVariable String phoneNumber){
 		return patientDetailsService.findPatientDetailByPhoneNumber(phoneNumber);
 	}
@@ -43,8 +45,18 @@ public class PatientDetailsRESTController {
 	}
 	
 	@GetMapping("/id/{id}")
-	public PatientDetails getPatientById(@PathVariable long id) {
+	public PatientDetails getPatientDetailsById(@PathVariable long id) {
 		return patientDetailsService.findPatientDetailsById(id);
+	}
+	
+	@GetMapping("/id/{id}/persons-to-contact")
+	public Iterable<PersonToContact> getAllPersonsToContact(@PathVariable long id ) {
+		return patientDetailsService.findPatientDetailsById(id).getPersonsToContact();
+	}
+	
+	@GetMapping("/id/{id}/patient-adresses")
+	public Iterable<Address> getAllPatientAdresses(@PathVariable long id) {
+		return patientDetailsService.findPatientDetailsById(id).getPatientAdress();
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -37,6 +37,12 @@ public class PersonToContactServiceImpl implements PersonToContactService {
 	public Iterable<PersonToContact> findPersonToContactByLastName(String lastName) {
 		return personToContactRepository.findByLastName(lastName);
 	}
+	
+	@Override
+	@Audit(action = "PersonToContactServiceImpl.findPersonToContactByFirstNameAndLastName()")
+	public Iterable<PersonToContact> findPersonToContactByFirstNameAndLastName(String firstName, String lastName) {
+		return personToContactRepository.findByFirstNameAndLastName(firstName, lastName);
+	}
 
 	@Override
 	@Audit(action = "PersonToContactServiceImpl.findPersonToContactByEmail()")
@@ -74,5 +80,6 @@ public class PersonToContactServiceImpl implements PersonToContactService {
 		PersonToContact personToContact =  findPersonToContactById(id);
 		personToContactRepository.delete(personToContact);
 	}
+
 
 }

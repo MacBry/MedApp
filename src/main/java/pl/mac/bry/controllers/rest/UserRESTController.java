@@ -31,17 +31,17 @@ public class UserRESTController {
 		return userService.getAllUsers();
 	}
 	
-	@GetMapping("/firstName/{firstName}")
+	@GetMapping("/first-name/{firstName}")
 	public Iterable<User> getUsersByFirstName(@PathVariable String firstName){
 		return userService.FindUserByFirstName(firstName);
 	}
 	
-	@GetMapping("/lastName/{lastName}")
+	@GetMapping("/last-name/{lastName}")
 	public Iterable<User> getUsersByLastName(@PathVariable String lastName){
 		return userService.FindUserByLastName(lastName);
 	}
 	
-	@GetMapping("/firstName/{firstName}/lastName/{lastName}")
+	@GetMapping("/first-name/{firstName}/last-name/{lastName}")
 	public Iterable<User> getUsersByFirstAndLastName(@PathVariable String firstName,
 			@PathVariable String lastName){
 		return userService.FindUserByFirstNameAndLastName(firstName, lastName); 

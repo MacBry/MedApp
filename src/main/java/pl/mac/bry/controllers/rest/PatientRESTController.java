@@ -32,19 +32,19 @@ public class PatientRESTController {
 		return patientService.getAllPatients();
 	}
 	
-	@GetMapping("/firstName/{firstName}")
+	@GetMapping("/first-name/{firstName}")
 	public Iterable<Patient> getPatientByFirstName(@PathVariable String firstName) {
 		return patientService.findPatientByFirstName(firstName);
 	}
 	
-	@GetMapping("/lastName/{lastName}")
+	@GetMapping("/last-name/{lastName}")
 	public Iterable<Patient> getPatientByLastName(@PathVariable String lastName) {
 		return patientService.findPatientByLastName(lastName);
 	}
 	
-	@GetMapping("/firstName/{firstName}/lastName/{lastName}")
+	@GetMapping("/first-name/{firstName}/last-name/{lastName}")
 	public Iterable<Patient> getPatientByFirstNameAndLastName(@PathVariable String firstName,
-			@PathVariable String lastName){
+			@PathVariable String lastName) {
 		return patientService.findPatientByFirstNameAndLastName(firstName, lastName);
 	}
 	
