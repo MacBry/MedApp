@@ -1,5 +1,10 @@
 package pl.mac.bry.services.impl;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.audit4j.core.annotation.Audit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,7 +81,29 @@ public class PatientServiceImpl implements PatientService {
 		patientRepository.delete(patient);
 	}
 
-	
+	public <T extends Object> T getPatientPropertyList(List<Patient> patientList, Class<T> type, String methodName) {
+		List<T> listOfProperty = new ArrayList<T>();
+		
+		for (Patient patient : patientList) {
+			for(Method method : Patient.class.getDeclaredMethods()) {
+				if(method.getName().equals(methodName)) {
+					try {
+						listOfProperty.add((T) method.invoke(patient, null));
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return (T) listOfProperty;
+	}
 
 	
 
