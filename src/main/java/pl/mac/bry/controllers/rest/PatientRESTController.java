@@ -1,5 +1,8 @@
 package pl.mac.bry.controllers.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.mac.bry.entities.Patient;
+import pl.mac.bry.entities.Sample;
 import pl.mac.bry.entities.PatientDetails;
 import pl.mac.bry.services.PatientService;
 
@@ -32,35 +36,58 @@ public class PatientRESTController {
 		return patientService.getAllPatients();
 	}
 	
-	@GetMapping("/first-name/{firstName}")
-	public Iterable<Patient> getPatientByFirstName(@PathVariable String firstName) {
-		return patientService.findPatientByFirstName(firstName);
-	}
-	
-	@GetMapping("/last-name/{lastName}")
-	public Iterable<Patient> getPatientByLastName(@PathVariable String lastName) {
-		return patientService.findPatientByLastName(lastName);
-	}
-	
-	@GetMapping("/first-name/{firstName}/last-name/{lastName}")
-	public Iterable<Patient> getPatientByFirstNameAndLastName(@PathVariable String firstName,
-			@PathVariable String lastName) {
-		return patientService.findPatientByFirstNameAndLastName(firstName, lastName);
-	}
-	
 	@GetMapping("/id/{id}")
 	public Patient getPatientById(@PathVariable long id) {
 		return patientService.findPatientById(id);
 	}
 	
-	@GetMapping("/pesel/{pesel}")
-	public Patient GetPatientByPesel(@PathVariable String pesel) {
-		return patientService.findPatientByPesel(pesel);
+	@GetMapping("/id/{id}/first-name")
+	public String getPatientFirstName(@PathVariable long id) {
+		return patientService.findPatientById(id).getFirstName();
 	}
 	
-	@GetMapping("/id{id}/details")
-	public PatientDetails GetAllPatientDetails(@PathVariable long id) {
+	@GetMapping("/first-names")
+	public List<String> getAllPatientsFirstNames() {
+		List<Patient> allPatients = (List<Patient>)patientService.getAllPatients();
+		return patientService.getValues(String.class, allPatients, Patient::getFirstName);
+	}
+	
+	@GetMapping("/id/{id}/last-name")
+	public String getPatientLastName(@PathVariable long id) {
+		return patientService.findPatientById(id).getLastName();
+	}
+	
+	@GetMapping("/last-names")
+	public List<String> getAllPatientsLastNames() {
+		List<Patient> allPatients = (List<Patient>)patientService.getAllPatients();
+		return patientService.getValues(String.class,allPatients, Patient::getLastName);
+	}
+	
+	@GetMapping("/id/{id}/pesel")
+	public String getPatientPessel(@PathVariable long id) {
+		return patientService.findPatientById(id).getPesel();
+	}
+	
+	@GetMapping("/pesels")
+	public List<String> getAllPatientPesels() {
+		List<Patient> allPatients = (List<Patient>)patientService.getAllPatients();
+		return patientService.getValues(String.class, allPatients, Patient::getPesel);
+	}
+	
+	@GetMapping("/id/{id}/patient-detail")
+	public PatientDetails getPatientDetail(@PathVariable long id) {
 		return patientService.findPatientById(id).getPatientDetails();
+	}
+	
+	@GetMapping("/patients-details")
+	public List<PatientDetails> getAllPatientsDetails() {
+		List<Patient> allPatients = (List<Patient>)patientService.getAllPatients();
+		return patientService.getValues(PatientDetails.class, allPatients, Patient::getPatientDetails);
+	}
+	
+	@GetMapping("/id/{id}/samples")
+	public List<Sample> getPatientSamples(@PathVariable long id) {
+		return patientService.findPatientById(id).getPatientSamples();
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
