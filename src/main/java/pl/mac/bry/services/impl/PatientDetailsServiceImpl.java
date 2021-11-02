@@ -1,5 +1,9 @@
 package pl.mac.bry.services.impl;
 
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import org.audit4j.core.annotation.Audit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,6 +66,12 @@ public class PatientDetailsServiceImpl implements PatientDetailsService {
 	public void deletePAtientDetails(long id) {
 		PatientDetails patientDetails = findPatientDetailsById(id);
 		patientDetailsRepository.delete(patientDetails);
+	}
+
+	@Override
+	@Audit(action = "PatientDetailsServiceImpl.getValues()")
+	public <T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor) {
+		return listToExtractFrom.stream().map(extractor).collect(Collectors.toList());
 	}
 
 	

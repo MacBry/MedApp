@@ -1,5 +1,7 @@
 package pl.mac.bry.controllers.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.sun.javafx.sg.prism.NGAmbientLight;
 
 import pl.mac.bry.entities.Address;
 import pl.mac.bry.entities.PatientDetails;
@@ -34,29 +38,40 @@ public class PatientDetailsRESTController {
 		return patientDetailsService.getAllPatientDetails();
 	}
 	
-	@GetMapping("/phone-number/{phoneNumber}")
-	public Iterable<PatientDetails> getPatientDetailsByPhoneNumber(@PathVariable String phoneNumber){
-		return patientDetailsService.findPatientDetailByPhoneNumber(phoneNumber);
-	}
-	
-	@GetMapping("/email/{email}")
-	public Iterable<PatientDetails> getPaientDetailsByEmail(@PathVariable String email){
-		return patientDetailsService.findPatientDetailByEmail(email);
-	}
-	
 	@GetMapping("/id/{id}")
 	public PatientDetails getPatientDetailsById(@PathVariable long id) {
 		return patientDetailsService.findPatientDetailsById(id);
 	}
 	
 	@GetMapping("/id/{id}/persons-to-contact")
-	public Iterable<PersonToContact> getAllPersonsToContact(@PathVariable long id ) {
+	public List<PersonToContact> getPatientDetailsPersonsToContact (@PathVariable long id){
 		return patientDetailsService.findPatientDetailsById(id).getPersonsToContact();
 	}
 	
-	@GetMapping("/id/{id}/patient-adresses")
-	public Iterable<Address> getAllPatientAdresses(@PathVariable long id) {
-		return patientDetailsService.findPatientDetailsById(id).getPatientAdress();
+	@GetMapping("/id/{id}/adresses")
+	public List<Address> getPatientDetailsAdresses(@PathVariable long id){
+		return patientDetailsService.findPatientDetailsById(id).getPatientAdresses();
+	}
+	
+	@GetMapping("/id/{id}/phone-number")
+	public String getPatientDetailsPhoneNumber(@PathVariable long id) {
+		return patientDetailsService.findPatientDetailsById(id).getPhoneNumber();
+	}
+	
+	@GetMapping("phones-numbers")
+	public List<String> getAllPatientsPhonesNumbers() {
+		List<PatientDetails> allDetails = (List<PatientDetails>) patientDetailsService.getAllPatientDetails();
+		return patientDetailsService.getValues(String.class, allDetails, PatientDetails::getPhoneNumber);
+	}
+	
+	@GetMapping("/id/{id}/email")
+	public String getPatientDetailsEmail (@PathVariable long id) {
+		return patientDetailsService.findPatientDetailsById(id).getEmail();
+	}
+	
+	public List<String> getAllPatientDetailsEmails () {
+		List<PatientDetails> allDetails = (List<PatientDetails>) patientDetailsService.getAllPatientDetails();
+		return patientDetailsService.getValues(String.class, allDetails, PatientDetails::getEmail);
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
