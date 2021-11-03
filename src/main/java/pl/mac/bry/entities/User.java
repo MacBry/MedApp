@@ -15,8 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import org.hibernate.validator.constraints.Length;
-
 import lombok.Data;
 
 @Entity
@@ -31,11 +29,9 @@ public class User implements Serializable {
 	private long id;
 
 	@NotBlank(message = "First Name is mandatory")
-	@Length(min = 2, max = 20)
 	private String firstName;
 
 	@NotBlank(message = "Last Name is mandatory")
-	@Length(min = 2, max = 20)
 	private String lastName;
 
 	@NotBlank(message = "Email is mandatory")
@@ -43,7 +39,6 @@ public class User implements Serializable {
 	private String email;
 
 	@NotBlank(message = "Password is mandatory")
-	@Length(min = 3, max = 20)
 	private String password;
 
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

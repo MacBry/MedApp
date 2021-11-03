@@ -35,7 +35,7 @@ public class SampleServiceImpl implements SampleService {
 	@Override
 	@Audit(action = "SampleServiceImpl.findSamplesByColectionDateTime()")
 	public Iterable<Sample> findSamplesByColectionDateTime(LocalDateTime colectionDateTime) {
-		return sampleRepository.findByColectionDateTime(colectionDateTime);
+		return sampleRepository.findByDonationDateTime(colectionDateTime);
 	}
 
 	@Override

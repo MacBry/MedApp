@@ -9,7 +9,7 @@ import pl.mac.bry.entities.SampleType;
 
 public interface SampleRepository extends CrudRepository<Sample, Long> {
 	
-	Iterable<Sample> findByColectionDateTime(LocalDateTime colectionDateTime);
+	Iterable<Sample> findByDonationDateTime(LocalDateTime colectionDateTime);
 	
 	Iterable<Sample> findBySampleType(SampleType sampleType);
 	
