@@ -1,5 +1,8 @@
 package pl.mac.bry.services;
 
+import java.util.List;
+import java.util.function.Function;
+
 import pl.mac.bry.entities.Address;
 
 public interface AddressService {
@@ -21,6 +24,8 @@ public interface AddressService {
 	void updateAddress(Address address);
 	
 	void deleteAddress(long id);
+	
+	<T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor);
 	
 
 }
