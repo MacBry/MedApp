@@ -24,7 +24,7 @@ public class Sample implements Serializable {
 	@Column(name = "sample_ID")
 	private long id;
 	
-	private LocalDateTime colectionDateTime;
+	private LocalDateTime donationDateTime;
 	
 	private SampleType sampleType;
 	

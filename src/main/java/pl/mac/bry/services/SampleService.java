@@ -1,6 +1,8 @@
 package pl.mac.bry.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.function.Function;
 
 import pl.mac.bry.entities.Sample;
 import pl.mac.bry.entities.SampleType;
@@ -20,4 +22,6 @@ public interface SampleService {
 	void updateSample(Sample sample);
 	
 	void deleteSample(long id);
+	
+	<T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor);
 }

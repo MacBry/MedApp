@@ -1,6 +1,9 @@
 package pl.mac.bry.services.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.audit4j.core.annotation.Audit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +68,11 @@ public class SampleServiceImpl implements SampleService {
 		Sample sample = findSampleById(id);
 		sampleRepository.delete(sample);
 	}
+
+	@Override
+	@Audit(action = "SampleServiceImpl.getValues()")
+	public <T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor) {
+	    return listToExtractFrom.stream().map(extractor).collect(Collectors.toList());
+	  }
 
 }
