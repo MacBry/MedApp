@@ -3,6 +3,9 @@ package pl.mac.bry.controllers.mvc;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,7 +36,8 @@ public class UserController {
     
     @GetMapping("/index")
     public String showUserList(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+    	Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("users", userService.findUserByMail(authentication.getName()));
         return "index";
     }
    
