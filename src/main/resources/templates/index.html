@@ -41,8 +41,8 @@
                                     <td th:text="${user.lastName}"></td>
                                     <td th:text="${user.email}"></td>
                                     <td th:text="${user.password}"></td>
-                                    <td><a th:href="@{/edit/{id}(id=${user.id})}" class="btn btn-default"><i class="fas fa-user-edit ml-2"></i></a></td>
-                                    <td><a th:href="@{/delete/{id}(id=${user.id})}" class="btn btn-default"><i class="fas fa-user-times ml-2"></i></a></td>
+                                    <td><a th:href="@{/edit/{id}(id=${user.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i></a></td>
+                                    <td><a th:href="@{/delete/{id}(id=${user.id})}" class="btn btn-info"><i class="fas fa-user-times ml-2"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -50,9 +50,9 @@
                    <p>
                
 					
-                    <a href="/signup" class="btn btn-default"><i class="fas fa-user-injured"></i>  Show Patients</a>
+                    <a href="/show-users" class="btn btn-info"><i class="fas fa-user-injured"></i>  Show Patients</a>
                     <form action="logout" th:action="@{/logout}" method="post">      
-						<input type="submit" class="btn btn-default" value="Logout">         
+						<input type="submit" class="btn btn-info" value="Logout">         
                     </form>
                     </p>
                 </div>
