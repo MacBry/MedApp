@@ -3,7 +3,6 @@ package pl.mac.bry.controllers.mvc;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -81,7 +80,7 @@ public class UserController {
     public String deleteUser(@PathVariable("id") long id, Model model) {
         
         userService.deleteUser(id);
-        return "redirect:/index";
+        return "redirect:/loginform";
     }
     
   
