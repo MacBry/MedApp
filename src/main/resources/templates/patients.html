@@ -21,27 +21,28 @@
 						
 						
 			
-                <div class="col-md-8">
+                <div class="col-md-10">
 				<h2 class="my-5">Patient information</h2>
 				
 				 
-                        <div class="row">
+				 
+				 <form action="#" th:action="@{/find-patients}" method="get">
+				 <div class="row">
                             <div class="form-group col-md-6 mt-2">
                                 <label for="PESEL" class="col-form-label">PESEL</label>
                                 <input type="text" class="form-control" name="pesel" placeholder="PESEL">
-                                <!--<span th:if="${#fields.hasErrors('pesel')}" th:errors="*{pesel}" class="text-info"></span>-->
+                                
 								
 							</div>	
-                            <div class="form-group col-md-6 mt-5">
-								<a href="/find-patient-by-pesel" class="btn btn-info"><i class="fas fa-user-injured"></i> Find Patient</a>
-								<a href="/index" class="btn btn-info"><i class="fas fa-user-injured"></i> Add Patient</a>
+                            <div class="form-group col-md-5 mt-5">
+								<input type="submit" value="Find Patient" class="btn btn-info">
+								
+								<a href="/show-add-patient-form" class="btn btn-info"><i class="fas fa-user-injured"></i> Add Patient</a>
 							
                             </div>
-                              <form method="post">
-								<input type="text" class="form-control" name="pesel" placeholder="PESEL">
-								<input type="submit" value="test">
-							  </form>
-                        </div>
+				 </form>
+                        
+                            
             
 		
                     
@@ -68,8 +69,8 @@
                                     <td th:text="${patient.pesel}"></td>
 									<td><a th:href="@{/edit/{id}(id=${patient.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i>Details</a></td>
 									<td><a th:href="@{/edit/{id}(id=${patient.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i>Samples</a></td>
-                                    <td><a th:href="@{/edit/{id}(id=${patient.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i></a></td>
-                                    <td><a th:href="@{/delete/{id}(id=${patient.id})}" class="btn btn-info"><i class="fas fa-user-times ml-2"></i></a></td>
+                                    <td><a th:href="@{/show-update-patient-form/{id}(id=${patient.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i></a></td>
+                                    <td><a th:href="@{/delete-patient/{id}(id=${patient.id})}" class="btn btn-info"><i class="fas fa-user-times ml-2"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -87,6 +88,6 @@
             
 									
 				
-			</div>	
+				
     </body>
 </html>
