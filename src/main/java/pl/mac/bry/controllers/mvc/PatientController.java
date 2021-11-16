@@ -66,7 +66,7 @@ public class PatientController {
 		return "update-patient-form";
 	}
 	
-	@PostMapping("/update-patient/{id}")
+	@PostMapping("/update-patient-form/{id}")
 	public String upadatePatient(@PathVariable("id") long id, @Valid Patient patient, BindingResult result) {
 		if (result.hasErrors()) {
             return "update-user";
@@ -74,7 +74,7 @@ public class PatientController {
         
         patientService.updatePatient(patient);
 
-        return "redirect:/patients";
+        return "redirect:/show-patients";
 	}
 	
 	@GetMapping("/delete-patient/{id}")
