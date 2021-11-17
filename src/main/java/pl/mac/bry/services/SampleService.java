@@ -24,4 +24,10 @@ public interface SampleService {
 	void deleteSample(long id);
 	
 	<T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor);
+
+	Iterable<Sample> findPatientAllSamples(long patientId);
+
+	void addSampleToPatient(long patientId, Sample sample);
+
+	void updatePatientSample(long patientId, Sample sample);
 }

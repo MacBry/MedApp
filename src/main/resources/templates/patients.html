@@ -68,7 +68,7 @@
                                     <td th:text="${patient.lastName}"></td>
                                     <td th:text="${patient.pesel}"></td>
 									<td><a th:href="@{/edit/{id}(id=${patient.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i>Details</a></td>
-									<td><a th:href="@{/edit/{id}(id=${patient.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i>Samples</a></td>
+									<td><a th:href="@{/patient-samples/{id}(id=${patient.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i>test</a></td>
                                     <td><a th:href="@{/show-update-patient-form/{id}(id=${patient.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i></a></td>
                                     <td><a th:href="@{/delete-patient/{id}(id=${patient.id})}" class="btn btn-info"><i class="fas fa-user-times ml-2"></i></a></td>
                                 </tr>

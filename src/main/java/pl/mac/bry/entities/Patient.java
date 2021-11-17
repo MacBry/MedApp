@@ -49,5 +49,8 @@ public class Patient implements Serializable {
 	@Fetch(value = FetchMode.SUBSELECT)// to remove "cannot simultaneously fetch multiple bags"
 	private List<Sample> patientSamples = new ArrayList<Sample>();
 	
+	public void addPatientSample(Sample sample) {
+		this.patientSamples.add(sample);
+	}
 
 }
