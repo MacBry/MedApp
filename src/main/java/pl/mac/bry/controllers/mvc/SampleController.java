@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import pl.mac.bry.entities.Sample;
 import pl.mac.bry.services.SampleService;
 
 @Controller
@@ -26,4 +27,11 @@ public class SampleController {
 		this.id = id;
 		return "show-patient-samples";
 	}
+	
+	@GetMapping("/show-add-sample-form")
+	public String showAddSampleForm(Sample sample) {
+		return "add-sample-form";
+	}
+	
+	
 }
