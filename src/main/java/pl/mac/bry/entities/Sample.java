@@ -1,6 +1,7 @@
 package pl.mac.bry.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -24,6 +27,7 @@ public class Sample implements Serializable {
 	@Column(name = "sample_ID")
 	private long id;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime donationDateTime;
 	
 	private SampleType sampleType;
