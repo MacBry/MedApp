@@ -1,8 +1,5 @@
 package pl.mac.bry.controllers.mvc;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +34,17 @@ public class SampleController {
 		return "show-patient-samples";
 	}
 	
+	@GetMapping("/find-sample")
+	public String findSampleById(Model model, @RequestParam("sampleId") long id) {
+		try {
+			model.addAttribute("samples", sampleService.findSampleById(id));
+			return "show-patient-samples";
+		} catch (IllegalArgumentException ex) {
+			model.addAttribute("samples", sampleService.findPatientAllSamples(id));
+			return "show-patient-samples";
+		}
+	}
+	
 	@GetMapping("/show-add-sample-form")
 	public String showAddSampleForm(Sample sample) {
 		return "add-sample-form";
@@ -54,5 +62,28 @@ public class SampleController {
 		sampleService.addSampleToPatient(id, sample);
 		model.addAttribute("samples", sampleService.findPatientAllSamples(id));
 		return "show-patient-samples";
+	}
+	
+	@GetMapping("/show-update-sample-form/{id}")
+	public String showUpadateForm(@PathVariable("id") long id, Model model) {
+		Sample sample = sampleService.findSampleById(id);
+		model.addAttribute("sample", sample);
+		return "update-sample";
+	}
+	
+	@PostMapping("/update-sample/{id}")
+	public String updatePatientSample(@PathVariable("id")long id, @Valid Sample sample, BindingResult result) {
+		if(result.hasErrors()) {
+			sample.setId(id);
+			return "update-sample";
+		}
+		sampleService.updatePatientSample(id, sample);
+		return "redirect:/patient-samples/{id}";
+	}
+	
+	@GetMapping("/delete-sample/{id}")
+	public String deleteSample (@PathVariable("id") long id) {
+		sampleService.deleteSample(id);
+		return "redirect:/patient-samples/{id}";
 	}
 }
