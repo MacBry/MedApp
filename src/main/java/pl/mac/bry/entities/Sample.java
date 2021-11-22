@@ -27,7 +27,7 @@ public class Sample implements Serializable {
 	@Column(name = "sample_ID")
 	private long id;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime donationDateTime;
 	
 	private SampleType sampleType;
