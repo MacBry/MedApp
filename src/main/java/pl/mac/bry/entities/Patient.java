@@ -45,7 +45,7 @@ public class Patient implements Serializable {
 	@OneToOne
 	private PatientDetails  patientDetails;
 	
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "patient", cascade =  { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(value = FetchMode.SUBSELECT)// to remove "cannot simultaneously fetch multiple bags"
 	private List<Sample> patientSamples = new ArrayList<Sample>();
 	

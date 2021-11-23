@@ -70,8 +70,10 @@ public class SampleServiceImpl implements SampleService {
 	@Audit(action = "SampleServiceImpl.deleteSample()")
 	public void deleteSample(long id) {
 		Sample sample = findSampleById(id);
+		Patient patient = patientService.findPatientById(sample.getPatient().getId());
 		sample.setPatient(null);
 		sampleRepository.delete(sample);
+		patientService.updatePatient(patient);
 	}
 
 	@Override

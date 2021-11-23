@@ -37,10 +37,14 @@ public class SampleController {
 	@GetMapping("/find-sample")
 	public String findSampleById(Model model, @RequestParam("sampleId") long id) {
 		try {
+			if(sampleService.findSampleById(id).getPatient()==null) {
+				return "show-patient-samples";
+			}else if (sampleService.findSampleById(id).getPatient().getId() == this.id) {
 			model.addAttribute("samples", sampleService.findSampleById(id));
 			return "show-patient-samples";
+			}
+			return "show-patient-samples";
 		} catch (IllegalArgumentException ex) {
-			model.addAttribute("samples", sampleService.findPatientAllSamples(id));
 			return "show-patient-samples";
 		}
 	}
@@ -72,11 +76,13 @@ public class SampleController {
 	}
 	
 	@PostMapping("/update-sample/{id}")
-	public String updatePatientSample(@PathVariable("id")long id, @Valid Sample sample, BindingResult result) {
+	public String updatePatientSample(@PathVariable("id")long id, @Valid Sample sample, BindingResult result,
+			@RequestParam(defaultValue = "") String date) {
 		if(result.hasErrors()) {
 			sample.setId(id);
 			return "update-sample";
 		}
+		sample.setDonationDateTime(StringToDateTimeConverter.convert(date));
 		sampleService.updatePatientSample(id, sample);
 		return "redirect:/patient-samples/{id}";
 	}
