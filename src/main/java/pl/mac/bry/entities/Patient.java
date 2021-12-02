@@ -52,5 +52,9 @@ public class Patient implements Serializable {
 	public void addPatientSample(Sample sample) {
 		this.patientSamples.add(sample);
 	}
+	
+	public void addPatientDetail(PatientDetails patientDetails) {
+		this.patientDetails = patientDetails;
+	}
 
 }

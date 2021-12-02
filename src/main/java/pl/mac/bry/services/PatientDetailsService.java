@@ -23,4 +23,8 @@ public interface PatientDetailsService {
 	
 	<T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor);
 
+	PatientDetails findPatientDetails(long patientId);
+
+	void addDetailToPatient(long patientId, PatientDetails patientDetails);
+
 }

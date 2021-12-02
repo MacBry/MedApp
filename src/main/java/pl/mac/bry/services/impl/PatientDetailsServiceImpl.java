@@ -8,19 +8,24 @@ import org.audit4j.core.annotation.Audit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.mac.bry.entities.Patient;
 import pl.mac.bry.entities.PatientDetails;
 import pl.mac.bry.repositories.PatientDetailsRepository;
 import pl.mac.bry.services.PatientDetailsService;
+import pl.mac.bry.services.PatientService;
 
 @Service
 public class PatientDetailsServiceImpl implements PatientDetailsService {
 	
 	private PatientDetailsRepository patientDetailsRepository;
+	private PatientService patientService;
 	
 	@Autowired
-	public PatientDetailsServiceImpl(PatientDetailsRepository patientDetailsRepository) {
+	public PatientDetailsServiceImpl(PatientDetailsRepository patientDetailsRepository,
+			PatientService patientService) {
 		super();
 		this.patientDetailsRepository = patientDetailsRepository;
+		this.patientService = patientService;
 	}
 
 	@Override
@@ -74,6 +79,19 @@ public class PatientDetailsServiceImpl implements PatientDetailsService {
 		return listToExtractFrom.stream().map(extractor).collect(Collectors.toList());
 	}
 
+	@Override
+	@Audit(action = "PatientDetailsServiceImpl.findPatientDetails()")
+	public PatientDetails findPatientDetails(long patientId) {
+		Patient patient = patientService.findPatientById(patientId);
+		return patient.getPatientDetails();
+	}
 	
+	@Override
+	@Audit(action = "PatientDetailsServiceImpl.addDetailToPatient()")
+	public void addDetailToPatient(long patientId, PatientDetails patientDetails) {
+		Patient patient = patientService.findPatientById(patientId);
+		patient.addPatientDetail(patientDetails);
+		patientService.updatePatient(patient);
+	}
 
 }
