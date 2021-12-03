@@ -39,13 +39,13 @@ public class PatientDetailsController {
 	}
 	
 	@PostMapping("/add-detail")
-	public String addDetail(@Valid PatientDetails details, BindingResult result, Model model) {
+	public String addDetail(@Valid PatientDetails detail, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			return "add-patient-detail-form";
 		}
-		model.addAttribute(details);
-		patientDetailsService.addDetailToPatient(id, details);
-		model.addAttribute("details", patientDetailsService.findPatientDetails(id));
+		model.addAttribute(detail);
+		patientDetailsService.addDetailToPatient(id, detail);
+		model.addAttribute("detail", patientDetailsService.findPatientDetails(id));
 		return "show-patient-details";
 	}
 			
