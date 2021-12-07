@@ -90,6 +90,7 @@ public class PatientDetailsServiceImpl implements PatientDetailsService {
 	@Audit(action = "PatientDetailsServiceImpl.addDetailToPatient()")
 	public void addDetailToPatient(long patientId, PatientDetails patientDetails) {
 		Patient patient = patientService.findPatientById(patientId);
+		patientDetailsRepository.save(patientDetails);
 		patient.addPatientDetail(patientDetails);
 		patientService.updatePatient(patient);
 	}
