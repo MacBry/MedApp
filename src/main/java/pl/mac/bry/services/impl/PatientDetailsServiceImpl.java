@@ -69,7 +69,10 @@ public class PatientDetailsServiceImpl implements PatientDetailsService {
 	@Override
 	@Audit(action = "PatientDetailsServiceImpl.deletePAtientDetails()")
 	public void deletePAtientDetails(long id) {
-		PatientDetails patientDetails = findPatientDetailsById(id);
+		Patient patient = patientService.findPatientById(id);
+		long detailId =patient.getPatientDetails().getId();
+		patient.setPatientDetails(null);
+		PatientDetails patientDetails = findPatientDetailsById(detailId);
 		patientDetailsRepository.delete(patientDetails);
 	}
 

@@ -37,9 +37,9 @@
                             <thead>
                                 <tr>
                                     <th>Email</th>
-									<th>Phone Number</th>
-                                    <th>Persons to Contract</th>
-									<th>Patient adresess</th>
+									<th>Phone <p>Number</p></th>
+                                    <th>Persons <p>to Contract</p></th>
+									<th>Patient <p>adresess<p></p></th>
 									<th>Edit</th>
                                     <th>Delete</th>
                                     
@@ -49,10 +49,10 @@
                                 <tr th:each="detail : ${details}">
 									<td th:text="${detail.email}"></td>
                                     <td th:text="${detail.phoneNumber}"></td>
-                                    <td><a th:href="@{/show-update-detail-form/{id}(id=${detail.id})}" class="btn btn-info"><i class="far fa-edit"></i></a></td>
-                                    <td><a th:href="@{/show-update-detail-form/{id}(id=${detail.id})}" class="btn btn-info"><i class="far fa-edit"></i></a></td>
-									<td><a th:href="@{/print-detail-label/{id}(id=${detail.id})}" class="btn btn-info"><i class="fas fa-print"></i></i></a></td>
-                                    <td><a th:href="@{/delete-detail/{id}(id=${detail.id})}" class="btn btn-info"><i class="far fa-trash-alt"></i></a></td>
+                                    <td><a th:href="@{/show-update-detail-form/{id}(id=${detail.id})}" class="btn btn-info"><i class="far fa-id-card"></i></a></td>
+                                    <td><a th:href="@{/show-update-detail-form/{id}(id=${detail.id})}" class="btn btn-info"><i class="fas fa-map-marked-alt"></i></a></td>
+									<td><a th:href="@{show-update-details-form/{id}(id=${detail.id})}" class="btn btn-info"><i class="fas fa-print"></i></i></a></td>
+                                    <td><a th:href="@{/delete-details/{id}(id=${detail.id})}" class="btn btn-info"><i class="far fa-trash-alt"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>

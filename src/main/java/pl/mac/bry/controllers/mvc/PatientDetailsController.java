@@ -48,5 +48,30 @@ public class PatientDetailsController {
 		model.addAttribute("details", patientDetailsService.findPatientDetails(id));
 		return "show-patient-details";
 	}
+	
+	@GetMapping("show-update-details-form/{id}")
+	public String showUpdateform(@PathVariable("id")long id, Model model) {
+		System.out.println(id);
+		PatientDetails patientDetails = patientDetailsService.findPatientDetails(id);
+		model.addAttribute("details", patientDetails);
+		return "update-details";
+	}
+	
+	@PostMapping("/update-details/{id}")
+	public String updatePatientDetails(@PathVariable("id")long id, @Valid PatientDetails patientDetails,
+			BindingResult result) {
+		if(result.hasErrors()) {
+			patientDetails.setId(id);
+			return "update-details";
+		}
+		patientDetailsService.updatePatientDetails(patientDetails);
+		return "redirect:/patient-details/{id}";
+	}
+	
+	@GetMapping("/delete-details/{id}")
+	public String deleteDetails(@PathVariable("id")long id) {
+		patientDetailsService.deletePAtientDetails(id);
+		return "redirect:/patient-details/{id}";
+	}
 			
 }
