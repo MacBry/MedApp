@@ -4,19 +4,24 @@ import org.audit4j.core.annotation.Audit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.mac.bry.entities.Patient;
 import pl.mac.bry.entities.PersonToContact;
 import pl.mac.bry.repositories.PersonToContactRepository;
+import pl.mac.bry.services.PatientService;
 import pl.mac.bry.services.PersonToContactService;
 
 @Service
 public class PersonToContactServiceImpl implements PersonToContactService {
 	
 	private PersonToContactRepository personToContactRepository;
+	private PatientService patientService;
 	
 	@Autowired
-	public PersonToContactServiceImpl(PersonToContactRepository personToContactRepository) {
+	public PersonToContactServiceImpl(PersonToContactRepository personToContactRepository,
+			PatientService patientService) {
 		super();
 		this.personToContactRepository = personToContactRepository;
+		this.patientService = patientService;
 	}
 
 	@Override
@@ -81,5 +86,11 @@ public class PersonToContactServiceImpl implements PersonToContactService {
 		personToContactRepository.delete(personToContact);
 	}
 
+	@Override
+	@Audit(action =  "PersonToContactServiceImpl.findPatientAllPersonsToContact")
+	public Iterable<PersonToContact> findPatientAllPersonsToContact(long patientId) {
+		Patient patient = patientService.findPatientById(patientId);
+		return patient.getPatientDetails().getPersonsToContact();
+	}
 
 }

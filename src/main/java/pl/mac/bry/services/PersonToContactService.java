@@ -23,4 +23,6 @@ public interface PersonToContactService {
 	void updatePersonToContact (PersonToContact personToContact);
 	
 	void deletePersonToContact (long id);
+
+	Iterable<PersonToContact> findPatientAllPersonsToContact(long patientId);
 }
