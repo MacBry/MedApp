@@ -43,6 +43,10 @@ public class PatientDetails implements Serializable {
 	@Email
 	private String email;
 	
+	public void addPersonToContact(PersonToContact personToContact) {
+		this.personsToContact.add(personToContact);
+	}
+	
 	
 
 }

@@ -87,10 +87,20 @@ public class PersonToContactServiceImpl implements PersonToContactService {
 	}
 
 	@Override
-	@Audit(action =  "PersonToContactServiceImpl.findPatientAllPersonsToContact")
+	@Audit(action =  "PersonToContactServiceImpl.findPatientAllPersonsToContact()")
 	public Iterable<PersonToContact> findPatientAllPersonsToContact(long patientId) {
 		Patient patient = patientService.findPatientById(patientId);
 		return patient.getPatientDetails().getPersonsToContact();
 	}
-
+	
+	@Override
+	@Audit(action = "PersonToContactServiceImpl.addPersonToContactToPatientDetails()")
+	public void addPersonToContactToPatientDetails(long patientId, PersonToContact personToContact) {
+		Patient patient = patientService.findPatientById(patientId);
+		personToContact.setPatientDetails(patient.getPatientDetails());
+		patient.getPatientDetails().addPersonToContact(personToContact);
+		personToContactRepository.save(personToContact);
+		patientService.updatePatient(patient);
+		
+	}
 }

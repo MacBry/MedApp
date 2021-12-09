@@ -43,5 +43,7 @@ public class PersonToContact implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "patient_details_id")
 	private PatientDetails patientDetails;
+	
+	
 
 }
