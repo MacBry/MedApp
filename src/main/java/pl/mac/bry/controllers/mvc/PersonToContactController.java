@@ -47,5 +47,28 @@ public class PersonToContactController {
 		model.addAttribute("personsToContact", personToContactService.findPatientAllPersonsToContact(id));
 		return "show-persons-to-contact";
 	}
+	
+	@GetMapping("show-update-person-to-contact-form/{id}")
+	public String showUpdateForm(@PathVariable("id") long id, Model model) {
+		PersonToContact personToContact = personToContactService.findPersonToContactById(id);
+		model.addAttribute("personToContact", personToContact);
+		return "update-person-to-contact";
+	}
+	
+	@PostMapping("/update-person-to-contact/{id}")
+	public String updatePersonToContact(@PathVariable("id") long id, @Valid PersonToContact personToContact, BindingResult result) {
+		if(result.hasErrors()) {
+			personToContact.setId(id);
+			return "update-person-to-contact";
+		}
+		personToContactService.updatePersonToContact(id,personToContact);
+		return "redirect:/patient-persons-to-contact/{id}";
+	}
+	
+	@GetMapping("detlete-person-to-contact/{id}")
+	public String deletePersontoContact(@PathVariable("id") long id) {
+		personToContactService.deletePersonToContact(id);
+		return"redirect:/patient-persons-to-contact/{id}";
+	}
 
 }

@@ -75,8 +75,11 @@ public class PersonToContactServiceImpl implements PersonToContactService {
 
 	@Override
 	@Audit(action = "PersonToContactServiceImpl.updatePersonToContact()")
-	public void updatePersonToContact(PersonToContact personToContact) {
+	public void updatePersonToContact(long patientId, PersonToContact personToContact) {
+		Patient patient = patientService.findPatientById(patientId);
+		personToContact.setPatientDetails(patient.getPatientDetails());
 		personToContactRepository.save(personToContact);
+		patientService.updatePatient(patient);
 	}
 
 	@Override
@@ -101,6 +104,12 @@ public class PersonToContactServiceImpl implements PersonToContactService {
 		patient.getPatientDetails().addPersonToContact(personToContact);
 		personToContactRepository.save(personToContact);
 		patientService.updatePatient(patient);
+		
+	}
+
+	@Override
+	public void updatePersonToContact(PersonToContact personToContact) {
+		// TODO Auto-generated method stub
 		
 	}
 }

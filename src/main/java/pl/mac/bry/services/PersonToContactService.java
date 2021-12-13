@@ -20,11 +20,13 @@ public interface PersonToContactService {
 	
 	void addPersonToContact (PersonToContact personToContact);
 	
-	void updatePersonToContact (PersonToContact personToContact);
+	void updatePersonToContact (long patientId,PersonToContact personToContact);
 	
 	void deletePersonToContact (long id);
 
 	Iterable<PersonToContact> findPatientAllPersonsToContact(long patientId);
 
 	void addPersonToContactToPatientDetails(long patientId, PersonToContact personToContact);
+
+	void updatePersonToContact(PersonToContact personToContact);
 }

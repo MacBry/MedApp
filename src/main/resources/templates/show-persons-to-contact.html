@@ -53,8 +53,8 @@
                                     <td th:text="${personToContact.lastName}"></td>
 									<td th:text="${personToContact.email}"></td>
                                     <td th:text="${personToContact.phoneNumber}"></td>
-									<td><a th:href="@{show-update-details-form/{id}(id=${personToContact.id})}" class="btn btn-info"><i class="far fa-edit"></i></a></td>
-                                    <td><a th:href="@{/delete-details/{id}(id=${personToContact.id})}" class="btn btn-info"><i class="far fa-trash-alt"></i></a></td>
+									<td><a th:href="@{show-update-person-to-contact-form/{id}(id=${personToContact.id})}" class="btn btn-info"><i class="far fa-edit"></i></a></td>
+                                    <td><a th:href="@{/delete-person-to-contact/{id}(id=${personToContact.id})}" class="btn btn-info"><i class="far fa-trash-alt"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
