@@ -51,7 +51,6 @@ public class PatientDetailsController {
 	
 	@GetMapping("show-update-details-form/{id}")
 	public String showUpdateform(@PathVariable("id")long id, Model model) {
-		System.out.println(id);
 		PatientDetails patientDetails = patientDetailsService.findPatientDetails(id);
 		model.addAttribute("details", patientDetails);
 		return "update-details";
