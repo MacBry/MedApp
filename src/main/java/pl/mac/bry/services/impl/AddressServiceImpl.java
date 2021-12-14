@@ -9,18 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.mac.bry.entities.Address;
+import pl.mac.bry.entities.Patient;
 import pl.mac.bry.repositories.AddressRepository;
 import pl.mac.bry.services.AddressService;
+import pl.mac.bry.services.PatientService;
 
 @Service
 public class AddressServiceImpl implements AddressService {
 	
 	private AddressRepository addressRepository;
+	private PatientService patientService;
 	
 	@Autowired
-	public AddressServiceImpl(AddressRepository addressRepository) {
+	public AddressServiceImpl(AddressRepository addressRepository, PatientService patientService) {
 		super();
 		this.addressRepository = addressRepository;
+		this.patientService = patientService;
 	}
 
 	@Override
@@ -82,6 +86,13 @@ public class AddressServiceImpl implements AddressService {
 	@Audit(action = "AddressServiceImpl.getValues()")
 	public <T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor) {
 		return listToExtractFrom.stream().map(extractor).collect(Collectors.toList());
+	}
+
+	@Override
+	@Audit(action = "AddressServiceImpl.findPatientAllAddresses()")
+	public Iterable<Address> findPatientAllAddresses(long patientId) {
+		Patient patient = patientService.findPatientById(patientId);
+		return patient.getPatientDetails().getPatientAdresses();
 	}
 
 }

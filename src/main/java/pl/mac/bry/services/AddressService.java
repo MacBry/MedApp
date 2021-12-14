@@ -26,6 +26,8 @@ public interface AddressService {
 	void deleteAddress(long id);
 	
 	<T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor);
+
+	Iterable<Address>findPatientAllAddresses(long patientId);
 	
 
 }
