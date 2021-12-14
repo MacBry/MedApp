@@ -81,7 +81,10 @@ public class AddressServiceImpl implements AddressService {
 	@Audit(action = "AddressServiceImpl.deleteAddress()")
 	public void deleteAddress(long id) {
 		Address address = findAddressById(id);
+		Patient patient = patientService.findPatientById(address.getPatientDetails().getId());
+		address.setPatientDetails(null);
 		addressRepository.delete(address);
+		patientService.updatePatient(patient);
 	}
 	
 	@Override

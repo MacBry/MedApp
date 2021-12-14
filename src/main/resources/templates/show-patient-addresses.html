@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Patient Details</title>
+        <title>Patient addresses</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
@@ -22,13 +22,13 @@
 						
 			
                 <div class="col-md-10">
-				<h2 class="my-5">Patient Details</h2>
+				<h2 class="my-5">Addresses</h2>
 			
             
                 <div class="form-group col-md-5 mt-5">
 
                     
-                    <a href="/show-add-patient-detail-form" class="btn btn-info"><i class="fas fa-user-injured"></i> Add Patient Details</a>
+                    <a href="/show-add-address-form" class="btn btn-info"><i class="far fa-id-card"></i> Add Address</a>
                 
                 </div>
                     
@@ -36,23 +36,25 @@
                         <table class="table table-striped table-responsive-md">
                             <thead>
                                 <tr>
-                                    <th>Email</th>
-									<th>Phone <p>Number</p></th>
-                                    <th>Persons <p>to Contract</p></th>
-									<th>Patient <p>adresess<p></p></th>
-									<th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>Id<p> </p></th>
+									<th>First <p>name</p></th>
+                                    <th>Last <p>name</p></th>
+									<th>Email</p></th>
+                                    <th>Phone<p>number</p></th>
+									<th>Edit<p> </p></th>
+                                    <th>Delete<p> </p></th>
                                     
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="detail : ${details}">
-									<td th:text="${detail.email}"></td>
-                                    <td th:text="${detail.phoneNumber}"></td>
-                                    <td><a th:href="@{/patient-persons-to-contact/{id}(id=${detail.id})}" class="btn btn-info"><i class="far fa-id-card"></i></a></td>
-                                    <td><a th:href="@{/patient-addresses/{id}(id=${detail.id})}" class="btn btn-info"><i class="fas fa-map-marked-alt"></i></a></td>
-									<td><a th:href="@{/show-update-details-form/{id}(id=${detail.id})}" class="btn btn-info"><i class="fas fa-print"></i></i></a></td>
-                                    <td><a th:href="@{/delete-details/{id}(id=${detail.id})}" class="btn btn-info"><i class="far fa-trash-alt"></i></a></td>
+                                <tr th:each="address : ${adresses}">
+                                    <td th:text="${address.id}"></td>
+                                    <td th:text="${address.country}"></td>
+                                    <td th:text="${address.city}"></td>
+									<td th:text="${address.street}"></td>
+                                    <td th:text="${address.zipCode}"></td>
+									<td><a th:href="@{/show-update-address-form/{id}(id=${address.id})}" class="btn btn-info"><i class="far fa-edit"></i></a></td>
+                                    <td><a th:href="@{/delete-address/{id}(id=${address.id})}" class="btn btn-info"><i class="far fa-trash-alt"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>

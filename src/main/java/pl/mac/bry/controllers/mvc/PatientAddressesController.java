@@ -45,4 +45,27 @@ public class PatientAddressesController {
 		model.addAttribute("address", addressService.findPatientAllAddresses(id));
 		return "show-patient-addresses";
 	}
+	
+	@GetMapping("show-update-address-form/{id}")
+	public String showUpdateAddress(@PathVariable("id") long id, Model model) {
+		Address address = addressService.findAddressById(id);
+		model.addAttribute("address", address);
+		return "update-address";
+	}
+	
+	@PostMapping("update-address/{id}")
+	public String updateAddress(@PathVariable("id") long id,@Valid Address address, BindingResult result) {
+		if(result.hasErrors()) {
+			address.setId(id);
+			return "update-address";
+		}
+		addressService.updateAddress(id, address);
+		return "redirect:/patient-addresses/{id}";
+	}
+	
+	@GetMapping("delete-address/{id}")
+	public String deleteAddress(@PathVariable("id") long id) {
+		addressService.deleteAddress(id);
+		return"redirect:/patient-addresses/{id}";
+	}
 }
