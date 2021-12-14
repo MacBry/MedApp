@@ -86,7 +86,10 @@ public class PersonToContactServiceImpl implements PersonToContactService {
 	@Audit(action = "PersonToContactServiceImpl.deletePersonToContact()")
 	public void deletePersonToContact(long id) {
 		PersonToContact personToContact =  findPersonToContactById(id);
+		Patient patient = patientService.findPatientById(personToContact.getPatientDetails().getId());
+		personToContact.setPatientDetails(null);
 		personToContactRepository.delete(personToContact);
+		patientService.updatePatient(patient);
 	}
 
 	@Override

@@ -65,7 +65,7 @@ public class PersonToContactController {
 		return "redirect:/patient-persons-to-contact/{id}";
 	}
 	
-	@GetMapping("detlete-person-to-contact/{id}")
+	@GetMapping("delete-person-to-contact/{id}")
 	public String deletePersontoContact(@PathVariable("id") long id) {
 		personToContactService.deletePersonToContact(id);
 		return"redirect:/patient-persons-to-contact/{id}";
