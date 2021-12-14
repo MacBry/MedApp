@@ -3,6 +3,8 @@ package pl.mac.bry.services;
 import java.util.List;
 import java.util.function.Function;
 
+import javax.validation.Valid;
+
 import pl.mac.bry.entities.Address;
 
 public interface AddressService {
@@ -28,6 +30,10 @@ public interface AddressService {
 	<T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor);
 
 	Iterable<Address>findPatientAllAddresses(long patientId);
+
+	void addAddressToPatientDetails(long patientId, @Valid Address address);
+
+	void updateAddress(long patientId, @Valid Address address);
 	
 
 }

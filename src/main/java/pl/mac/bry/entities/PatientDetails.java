@@ -47,6 +47,8 @@ public class PatientDetails implements Serializable {
 		this.personsToContact.add(personToContact);
 	}
 	
-	
+	public void addPatientAddress(Address address) {
+		this.patientAdresses.add(address);
+	}
 
 }

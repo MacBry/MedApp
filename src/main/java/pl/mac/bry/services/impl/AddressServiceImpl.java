@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.audit4j.core.annotation.Audit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,6 +95,25 @@ public class AddressServiceImpl implements AddressService {
 	public Iterable<Address> findPatientAllAddresses(long patientId) {
 		Patient patient = patientService.findPatientById(patientId);
 		return patient.getPatientDetails().getPatientAdresses();
+	}
+
+	@Override
+	@Audit(action = "AddressServiceImpl.addAddressToPatientDetails()")
+	public void addAddressToPatientDetails(long patientId, @Valid Address address) {
+		Patient patient = patientService.findPatientById(patientId);
+		address.setPatientDetails(patient.getPatientDetails());
+		patient.getPatientDetails().addPatientAddress(address);
+		addressRepository.save(address);
+		patientService.updatePatient(patient);
+	}
+
+	@Override
+	@Audit(action = "AddressServiceImpl.updateAddress()")
+	public void updateAddress(long patientId, @Valid Address address) {
+		Patient patient = patientService.findPatientById(patientId);
+		address.setPatientDetails(patient.getPatientDetails());
+		addressRepository.save(address);
+		patientService.updatePatient(patient);
 	}
 
 }
