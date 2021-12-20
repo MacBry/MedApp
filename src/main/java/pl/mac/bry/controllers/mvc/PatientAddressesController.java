@@ -60,7 +60,7 @@ public class PatientAddressesController {
 			return "update-address";
 		}
 		addressService.updateAddress(id, address);
-		return "redirect:/patient-addresses/{id}";
+		return "show-patient-addresses";
 	}
 	
 	@GetMapping("delete-address/{id}")
