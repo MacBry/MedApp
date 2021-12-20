@@ -19,7 +19,7 @@ import pl.mac.bry.util.StringToDateTimeConverter;
 public class SampleController {
 	
 	private SampleService sampleService;
-	private long id;
+	private long patientId;
 
 	@Autowired
 	public SampleController(SampleService sampleService) {
@@ -30,7 +30,7 @@ public class SampleController {
 	@GetMapping("/patient-samples/{id}")
 	public String showPatientSamples(@PathVariable("id") long id, Model model) {
 		model.addAttribute("samples", sampleService.findPatientAllSamples(id));
-		this.id = id;
+		this.patientId = id; 
 		return "show-patient-samples";
 	}
 	
@@ -39,7 +39,7 @@ public class SampleController {
 		try {
 			if(sampleService.findSampleById(id).getPatient()==null) {
 				return "show-patient-samples";
-			}else if (sampleService.findSampleById(id).getPatient().getId() == this.id) {
+			}else if (sampleService.findSampleById(id).getPatient().getId() == this.patientId) {
 			model.addAttribute("samples", sampleService.findSampleById(id));
 			return "show-patient-samples";
 			}
@@ -63,8 +63,8 @@ public class SampleController {
 		}
 		sample.setDonationDateTime(StringToDateTimeConverter.convert(date));
 		model.addAttribute(sample);
-		sampleService.addSampleToPatient(id, sample);
-		model.addAttribute("samples", sampleService.findPatientAllSamples(id));
+		sampleService.addSampleToPatient(patientId, sample);
+		model.addAttribute("samples", sampleService.findPatientAllSamples(patientId));
 		return "show-patient-samples";
 	}
 	
@@ -90,6 +90,7 @@ public class SampleController {
 	@GetMapping("/delete-sample/{id}")
 	public String deleteSample (@PathVariable("id") long id) {
 		sampleService.deleteSample(id);
-		return "redirect:/patient-samples/{id}";
+		
+		return "show-patient-samples";
 	}
 }
