@@ -30,6 +30,9 @@ public class Sample implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime donationDateTime;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	private LocalDateTime rejestrationDateTime;
+	
 	private SampleType sampleType;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

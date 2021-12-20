@@ -1,5 +1,7 @@
 package pl.mac.bry.controllers.mvc;
 
+import java.time.LocalDateTime;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +64,9 @@ public class SampleController {
 			return "add-sample-form";
 		}
 		sample.setDonationDateTime(StringToDateTimeConverter.convert(date));
+		LocalDateTime now = LocalDateTime.now();
+		System.out.println(now);
+		sample.setRejestrationDateTime(LocalDateTime.now());
 		model.addAttribute(sample);
 		sampleService.addSampleToPatient(patientId, sample);
 		model.addAttribute("samples", sampleService.findPatientAllSamples(patientId));

@@ -51,6 +51,17 @@ public class SampleRESTController {
 		return sampleService.getValues(LocalDateTime.class, allSamples, Sample::getDonationDateTime);
 	}
 	
+	@GetMapping("/id/{id}/sample-rejestration-date-time")
+	public LocalDateTime getSampleRejestrationDateTime(@PathVariable long id) {
+		return sampleService.findSampleById(id).getRejestrationDateTime();
+	}
+	
+	@GetMapping("rejestration-dates-times")
+	public List<LocalDateTime> getAllSamplesRejestrationDateTimes() {
+		List<Sample> allSamples =  (List<Sample>) sampleService.getAllSamples();
+		return sampleService.getValues(LocalDateTime.class, allSamples, Sample::getRejestrationDateTime);
+	}
+	
 	@GetMapping("/id/{id}/sample-type")
 	public SampleType getSampleType(@PathVariable long id) {
 		return sampleService.findSampleById(id).getSampleType();

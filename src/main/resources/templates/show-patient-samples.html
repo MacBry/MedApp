@@ -52,6 +52,7 @@
                                 <tr>
                                     <th>Id</th>
 									<th>Donation Date Time</th>
+                                    <th>Rejestration Date Time</th>
                                     <th>Sample Type</th>
 									<th>Edit</th>
 									<th>Print Label</th>
@@ -63,6 +64,7 @@
                                 <tr th:each="sample : ${samples}">
 									<td th:text="${sample.id}"></td>
                                     <td th:text="${sample.donationDateTime}"></td>
+                                    <td th:text="${sample.rejestrationDateTime}"></td>
                                     <td th:text="${sample.sampleType}"></td>
                                     <td><a th:href="@{/show-update-sample-form/{id}(id=${sample.id})}" class="btn btn-info"><i class="far fa-edit"></i></a></td>
 									<td><a th:href="@{/print-sample-label/{id}(id=${sample.id})}" class="btn btn-info"><i class="fas fa-print"></i></i></a></td>
