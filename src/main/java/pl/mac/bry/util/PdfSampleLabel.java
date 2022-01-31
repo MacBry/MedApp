@@ -1,5 +1,6 @@
 package pl.mac.bry.util;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -27,12 +28,11 @@ import lombok.Builder;
 import lombok.Data;
 import pl.mac.bry.entities.Sample;
 
-@Builder
 @Data
 public class PdfSampleLabel {
 	
 	
-	private String dest = "/MedApp/src/main/resources/labels" + createNameString();
+	private  String DEST = "D:\\Projekty STS\\MedApp\\src\\main\\resources\\labels\\test.pdf"; 
 	
 	private float leftMargin;
 	
@@ -68,15 +68,19 @@ public class PdfSampleLabel {
 				bottomMargin);
 	}
 	
+	
+	
 	private String createNameString() {
-		return "/"+ sample.getPatient().getLastName() + LocalDateTime.now().toString() + ".pdf";
+		return "\test.pdf";
 	}
 	
-	public void createPdf(String dest) throws IOException, DocumentException {
-        Rectangle small = createRectangle();
+	public void createPdf() throws IOException, DocumentException {
+		
+		File file = new File(DEST);
+        
         Font smallfont = createFont();
         Document document = createDocument();
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(dest));
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(DEST));
         document.open();
         PdfPTable table = new PdfPTable(2);
         table.setTotalWidth(new float[]{ 1603, 120 });
@@ -111,4 +115,8 @@ public class PdfSampleLabel {
         document.add(table);
         document.close();
     }
+
+	public PdfSampleLabel() {
+		// TODO Auto-generated constructor stub
+	}
 }
