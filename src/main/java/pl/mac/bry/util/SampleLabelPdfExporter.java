@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.audit4j.core.annotation.Audit;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -36,7 +38,7 @@ public class SampleLabelPdfExporter {
 	private float secondColumnWidth;
 	
 	private Rectangle createLabelRectangle() {
-		return new Rectangle(this.labelHeight, this.labelWidth); 
+		return new Rectangle(this.labelWidth, this.labelHeight); 
 	}
 	
 	private Document createDocument() {
@@ -50,6 +52,7 @@ public class SampleLabelPdfExporter {
 		return table;
 	}
 	
+	@Audit(action = "SampleLabelPdfExporter.export()")
 	public void export(HttpServletResponse response) throws DocumentException, IOException {
 		Document document = createDocument();
 		PdfWriter pdfWriter = PdfWriter.getInstance(document, response.getOutputStream());

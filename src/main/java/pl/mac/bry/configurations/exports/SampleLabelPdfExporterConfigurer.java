@@ -15,8 +15,8 @@ public class SampleLabelPdfExporterConfigurer {
 		exporter.setTopMargin(2);
 		exporter.setLeftMargin(2);
 		exporter.setRightMargin(2);
-		exporter.setLabelHeight(144);
-		exporter.setLabelWidth(72);
+		exporter.setLabelHeight(72);
+		exporter.setLabelWidth(144);
 		exporter.setFirstColumnWidth(100);
 		exporter.setSecondColumnWidth(40);
 		return exporter;
