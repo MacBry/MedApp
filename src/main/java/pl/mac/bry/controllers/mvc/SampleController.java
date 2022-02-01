@@ -1,7 +1,12 @@
 package pl.mac.bry.controllers.mvc;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.itextpdf.text.DocumentException;
+
 import pl.mac.bry.entities.Sample;
 import pl.mac.bry.services.SampleService;
+import pl.mac.bry.util.SampleLabelPdfExporter;
 import pl.mac.bry.util.StringToDateTimeConverter;
 
 @Controller
@@ -22,11 +30,13 @@ public class SampleController {
 	
 	private SampleService sampleService;
 	private long patientId;
+	private SampleLabelPdfExporter sampleLabelPdfExporter;
 
 	@Autowired
-	public SampleController(SampleService sampleService) {
+	public SampleController(SampleService sampleService,SampleLabelPdfExporter sampleLabelPdfExporter) {
 		super();
 		this.sampleService = sampleService;
+		this.sampleLabelPdfExporter =  sampleLabelPdfExporter;
 	}
 	
 	@GetMapping("/patient-samples/{id}")
@@ -90,6 +100,21 @@ public class SampleController {
 		sample.setDonationDateTime(StringToDateTimeConverter.convert(date));
 		sampleService.updatePatientSample(id, sample);
 		return "redirect:/patient-samples/{id}";
+	}
+	
+	@GetMapping("/print-sample-label/{id}")
+	public void exportLabelToPdf(HttpServletResponse response, @PathVariable("id") long id) throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        
+        Sample sample = sampleService.findSampleById(id);
+        sampleLabelPdfExporter.setSample(sample);
+        sampleLabelPdfExporter.export(response);
 	}
 	
 	@GetMapping("/delete-sample/{id}")
