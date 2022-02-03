@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
 import pl.mac.bry.entities.PdfLabelDocument;
 import pl.mac.bry.services.PdfDocumentService;
 import pl.mac.bry.services.PdfRectangleService;
