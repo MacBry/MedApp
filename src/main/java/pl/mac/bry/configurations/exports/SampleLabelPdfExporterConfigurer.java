@@ -1,6 +1,5 @@
 package pl.mac.bry.configurations.exports;
 
-import org.hibernate.loader.plan.exec.process.spi.ReturnReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
