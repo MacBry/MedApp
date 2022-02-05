@@ -3,8 +3,6 @@ package pl.mac.bry.configurations.exports;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
 import pl.mac.bry.entities.PdfLabelDocument;
 import pl.mac.bry.entities.PdfLabelRectangle;
 import pl.mac.bry.entities.PdfLabelTable;
