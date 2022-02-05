@@ -3,8 +3,11 @@ package pl.mac.bry.configurations.exports;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import pl.mac.bry.entities.PdfLabelDocument;
 import pl.mac.bry.entities.PdfLabelRectangle;
+import pl.mac.bry.entities.PdfLabelTable;
 import pl.mac.bry.util.SampleLabelPdfExporter;
 
 @Configuration
@@ -40,5 +43,15 @@ public class SampleLabelPdfExporterConfigurer {
 		rectangle.setPdfHeight(72);
 		rectangle.setPdfWidth(144);
 		return rectangle;
+	}
+	
+	@Bean
+	public PdfLabelTable pdfLabelTable() {
+		PdfLabelTable table = new PdfLabelTable();
+		table.setFirstColumnWidth(100);
+		table.setSecondColumnWidth(40);
+		table.setNumberOfColumns(2);
+		table.setWidthLocked(true);
+		return table;
 	}
 }
