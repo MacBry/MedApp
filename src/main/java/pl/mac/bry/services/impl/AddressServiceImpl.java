@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 import pl.mac.bry.entities.Address;
 import pl.mac.bry.entities.Patient;
+import pl.mac.bry.entities.PatientDetails;
 import pl.mac.bry.repositories.AddressRepository;
 import pl.mac.bry.services.AddressService;
+import pl.mac.bry.services.PatientDetailsService;
 import pl.mac.bry.services.PatientService;
 
 @Service
@@ -21,12 +23,14 @@ public class AddressServiceImpl implements AddressService {
 	
 	private AddressRepository addressRepository;
 	private PatientService patientService;
+	private PatientDetailsService patientDetailsService;
 	
 	@Autowired
-	public AddressServiceImpl(AddressRepository addressRepository, PatientService patientService) {
+	public AddressServiceImpl(AddressRepository addressRepository, PatientService patientService, PatientDetailsService patientDetailsService) {
 		super();
 		this.addressRepository = addressRepository;
 		this.patientService = patientService;
+		this.patientDetailsService = patientDetailsService;
 	}
 
 	@Override
@@ -104,10 +108,12 @@ public class AddressServiceImpl implements AddressService {
 	@Audit(action = "AddressServiceImpl.addAddressToPatientDetails()")
 	public void addAddressToPatientDetails(long patientId, @Valid Address address) {
 		Patient patient = patientService.findPatientById(patientId);
-		address.setPatientDetails(patient.getPatientDetails());
+		PatientDetails details = patientDetailsService.findPatientDetails(patientId);
+		address.setPatientDetails(details);
 		patient.getPatientDetails().addPatientAddress(address);
 		addressRepository.save(address);
 		patientService.updatePatient(patient);
+		patientDetailsService.updatePatientDetails(details);
 	}
 
 	@Override
