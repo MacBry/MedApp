@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import org.hibernate.validator.constraints.Length;
+
 
 import lombok.Data;
 
@@ -28,11 +28,11 @@ public class PersonToContact implements Serializable {
 	private long id;
 	
 	@NotBlank(message = "First Name is mandatory")
-	@Length(min = 2, max = 20)
+
 	private String firstName;
 	
 	@NotBlank(message = "Last Name is mandatory")
-	@Length(min =2, max = 20)
+
 	private String lastName;
 	
 	@Email

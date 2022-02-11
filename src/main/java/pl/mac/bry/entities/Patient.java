@@ -17,7 +17,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.validator.constraints.Length;
+
 
 import lombok.Data;
 
@@ -33,11 +33,9 @@ public class Patient implements Serializable {
 	private long id;
 	
 	@NotBlank(message = "First Name is mandatory")
-	@Length(min = 2, max = 20)
 	private String firstName;
 	
 	@NotBlank(message = "Last Name is mandatory")
-	@Length(min =2, max = 20)
 	private String lastName;
 	
 	private String pesel;
