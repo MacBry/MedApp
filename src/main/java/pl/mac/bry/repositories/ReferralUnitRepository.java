@@ -6,4 +6,8 @@ import pl.mac.bry.entities.ReferralUnit;
 
 public interface ReferralUnitRepository extends CrudRepository<ReferralUnit,Long> {
 
+	ReferralUnit findReferralUnitByFullName(String fullName);
+
+	ReferralUnit findReferralUnitByShortName(String shortName);
+
 }
