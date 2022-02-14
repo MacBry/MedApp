@@ -1,13 +1,13 @@
 package pl.mac.bry.services.impl;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.audit4j.core.annotation.Audit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.common.base.Function;
 
 import pl.mac.bry.entities.ReferralUnit;
 import pl.mac.bry.repositories.ReferralUnitRepository;
@@ -70,7 +70,7 @@ public class ReferralUnitServiceImpl implements ReferralUnitService {
 
 	@Override
 	@Audit(action = "ReferralUnitServiceImpl.getValues()")
-	public <T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor) {
+	public <T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O,T> extractor) {
 		return listToExtractFrom.stream().map(extractor).collect(Collectors.toList());
 	}
 

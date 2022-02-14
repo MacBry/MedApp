@@ -1,8 +1,7 @@
 package pl.mac.bry.services;
 
 import java.util.List;
-
-import com.google.common.base.Function;
+import java.util.function.Function;
 
 import pl.mac.bry.entities.ReferralUnit;
 
@@ -22,6 +21,7 @@ public interface ReferralUnitService {
 	
 	void deleteReferralunit (long id);
 	
+
 	<T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor);
 	
 }
