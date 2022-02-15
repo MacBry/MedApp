@@ -64,6 +64,6 @@ public class ReferralUnitController {
 	@GetMapping("/delete-referral-unit/{id}")
 	public String deleteReferralUnit(@PathVariable("id") long id) {
 		referralUnitService.deleteReferralunit(id);
-		return "redirect:/show-units";
+		return "redirect:/show-referral-units";
 	}
 }
