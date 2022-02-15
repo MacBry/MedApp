@@ -27,7 +27,7 @@ public class ReferralUnitController {
 	@GetMapping("/show-referral-units")
 	public String showAllReferralUnits(Model model) {
 		model.addAttribute("referralUnits", referralUnitService.getAllReferralUnits());
-		return "referral-units";
+		return "show-referral-units";
 	}
 	
 	@GetMapping("show-add-referral-unit-form")
