@@ -51,11 +51,10 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-									<th>NAME</th>
+									<th>Full Name</th>
                                     <th>Short Name</th>
                                     <th>Address</th>
                                     <th>Show Details</th>
-                                    <th>Show Samples</th>
 									<th>Edit</th>
                                     <th>Delete</th>
                                     
@@ -73,9 +72,8 @@
                                         <span th:utext="${referralUnit.address.getStreet()}"></span>
                                     </td>
 									<td><a th:href="@{/referralUnit-details/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i>Details</a></td>
-									<td><a th:href="@{/referralUnit-samples/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i>Samples</a></td>
-                                    <td><a th:href="@{/show-update-referralUnit-form/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i></a></td>
-                                    <td><a th:href="@{/delete-referralUnit/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-times ml-2"></i></a></td>
+                                    <td><a th:href="@{/show-update-referral-unit-form/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i></a></td>
+                                    <td><a th:href="@{/delete-referral-unit/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-times ml-2"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>

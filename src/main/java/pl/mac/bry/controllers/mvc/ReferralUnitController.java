@@ -45,17 +45,17 @@ public class ReferralUnitController {
 		return "redirect:/show-referral-units";
 	}
 	
-	@GetMapping("/show-update-referral-unit-form/{is}")
+	@GetMapping("/show-update-referral-unit-form/{id}")
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
 		ReferralUnit referralUnit = referralUnitService.findReferralUnitById(id);
 		model.addAttribute("referralUnit", referralUnit);
 		return "update-referral-unit-form";
 	}
 	
-	@PostMapping("/update-referral-unit")
+	@PostMapping("/update-referral-unit/{id}")
 	public String updateReferralUnit(@PathVariable("id") long id, @Valid ReferralUnit referralUnit, BindingResult result) {
 		if(result.hasErrors()) {
-			return "update-referral-unit";
+			return "update-referral-unit-form";
 		}
 		referralUnitService.updateReferralUnit(referralUnit);
 		return "redirect:/show-referral-units";
