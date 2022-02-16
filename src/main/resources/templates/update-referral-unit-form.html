@@ -21,7 +21,7 @@
 				
 				
 				
-                    <form action="#" th:action="@{/add-referral-unit}" th:object="${referralUnit}" method="post">
+                    <form action="#" th:action="@{/update-referral-unit/{id}(id=${referralUnit.id})}" th:object="${referralUnit}" method="post">
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="fullName" class="col-form-label">Full Name</label>
