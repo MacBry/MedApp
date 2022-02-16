@@ -25,13 +25,13 @@ public class PatientDetailsController {
 	}
 	
 	@GetMapping("/patient-details/{id}")
-	public String showPatientDetailString(@PathVariable("id") long id, Model model) {
+	public String showPatientDetail(@PathVariable("id") long id, Model model) {
 		model.addAttribute("details", patientDetailsService.findPatientDetails(id));
 		this.id = id;
 		return "show-patient-details";
 	}
 	
-	@GetMapping("show-add-patient-detail-form")
+	@GetMapping("/show-add-patient-detail-form")
 	public String showAddDetailForm(PatientDetails patientDetails) {
 		return "add-patient-detail-form";
 	}
