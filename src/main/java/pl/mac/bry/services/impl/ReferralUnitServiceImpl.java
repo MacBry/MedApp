@@ -1,5 +1,6 @@
 package pl.mac.bry.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -72,6 +73,22 @@ public class ReferralUnitServiceImpl implements ReferralUnitService {
 	@Audit(action = "ReferralUnitServiceImpl.getValues()")
 	public <T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O,T> extractor) {
 		return listToExtractFrom.stream().map(extractor).collect(Collectors.toList());
+	}
+
+	@Override
+	@Audit(action = "ReferralUnitServiceImpl.findReferralUnitByPartofFullName()")
+	public Iterable<ReferralUnit> findReferralUnitByPartofFullName(String partOfFullName) {
+		List<ReferralUnit> allReferralUnits = (List<ReferralUnit>)getAllReferralUnits();
+		List<ReferralUnit> findReferralUnits = new ArrayList<ReferralUnit>();
+		List<String> fullNameList =getValues(String.class, allReferralUnits, ReferralUnit::getFullName);
+		for (String fullName : fullNameList) {
+			if(fullName.contains(partOfFullName)) {
+				long id = (long)fullNameList.indexOf(fullName) + 1;
+				findReferralUnits.add(findReferralUnitById(id));
+			}
+		}
+		return findReferralUnits;
+				
 	}
 
 }

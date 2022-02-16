@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.mac.bry.entities.ReferralUnit;
 import pl.mac.bry.services.ReferralUnitService;
@@ -28,6 +29,18 @@ public class ReferralUnitController {
 	public String showAllReferralUnits(Model model) {
 		model.addAttribute("referralUnits", referralUnitService.getAllReferralUnits());
 		return "show-referral-units";
+	}
+	
+	@GetMapping("/find-referral-unit-by-part-of-full-name")
+	public String findReferralUnitByPartOfFullName(Model model, @RequestParam("partOfFullName") String partOffFullName) {
+		try {
+			model.addAttribute("referralUnits", referralUnitService.findReferralUnitByPartofFullName(partOffFullName));
+			return "show-referral-units";
+			
+		} catch (IllegalArgumentException e) {
+			model.addAttribute("", referralUnitService.getAllReferralUnits());
+			return "show-referral-units";
+		}
 	}
 	
 	@GetMapping("show-add-referral-unit-form")

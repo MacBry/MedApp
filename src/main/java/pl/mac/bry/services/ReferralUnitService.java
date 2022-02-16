@@ -21,7 +21,8 @@ public interface ReferralUnitService {
 	
 	void deleteReferralunit (long id);
 	
-
+	Iterable<ReferralUnit> findReferralUnitByPartofFullName(String partOfFullName);
+	
 	<T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor);
 	
 }
