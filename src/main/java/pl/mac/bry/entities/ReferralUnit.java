@@ -30,5 +30,8 @@ public class ReferralUnit implements Serializable {
 	
 	@OneToOne
 	private ReferralUnitDetails referralUnitDetails;
-		
+	
+	public void addReferralUnitDetail(ReferralUnitDetails referralUnitDetails) {
+		this.referralUnitDetails = referralUnitDetails;
+	}
 }

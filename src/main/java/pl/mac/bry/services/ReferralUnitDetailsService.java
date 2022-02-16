@@ -28,4 +28,6 @@ public interface ReferralUnitDetailsService {
 	void updateReferralUnitDetails(ReferralUnitDetails referralUnitDetails);
 	
 	void deleteReferralUnitDetails(long id);
+
+	void addDetailToReferralUnit(long id, ReferralUnitDetails referralUnitDetails);
 }

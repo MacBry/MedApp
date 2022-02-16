@@ -8,19 +8,25 @@ import org.audit4j.core.annotation.Audit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.mac.bry.entities.ReferralUnit;
 import pl.mac.bry.entities.ReferralUnitDetails;
 import pl.mac.bry.repositories.ReferralUnitDetailsRepository;
 import pl.mac.bry.services.ReferralUnitDetailsService;
+import pl.mac.bry.services.ReferralUnitService;
 
 @Service
 public class ReferralUnitDetailsServiceImpl implements ReferralUnitDetailsService {
 
 	private ReferralUnitDetailsRepository referralUnitDetailsRepository;
-	
+	private ReferralUnitService referralUnitService;
+
+
 	@Autowired
-	public ReferralUnitDetailsServiceImpl(ReferralUnitDetailsRepository referralUnitDetailsRepository) {
+	public ReferralUnitDetailsServiceImpl(ReferralUnitDetailsRepository referralUnitDetailsRepository,
+			ReferralUnitService referralUnitService) {
 		super();
 		this.referralUnitDetailsRepository = referralUnitDetailsRepository;
+		this.referralUnitService = referralUnitService;
 	}
 
 	@Override
@@ -90,6 +96,15 @@ public class ReferralUnitDetailsServiceImpl implements ReferralUnitDetailsServic
 	public void deleteReferralUnitDetails(long id) {
 		ReferralUnitDetails referralUnitDetails = findReferralUnitDetailsById(id);
 		referralUnitDetailsRepository.delete(referralUnitDetails);
+	}
+
+	@Override
+	@Audit(action = "ReferralUnitDetailsServiceImpl.addDetailToReferralUnit()")
+	public void addDetailToReferralUnit(long id, ReferralUnitDetails referralUnitDetails) {
+		ReferralUnit referralUnit = referralUnitService.findReferralUnitById(id);
+		referralUnitDetailsRepository.save(referralUnitDetails);
+		referralUnit.addReferralUnitDetail(referralUnitDetails);
+		referralUnitService.updateReferralUnit(referralUnit);
 	}
 
 	
