@@ -71,7 +71,7 @@
                                         <span th:utext="${referralUnit.address.getCity()}"></span><br>
                                         <span th:utext="${referralUnit.address.getStreet()}"></span>
                                     </td>
-									<td><a th:href="@{/referralUnit-details/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i>Details</a></td>
+									<td><a th:href="@{/referral-unit-details/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i>Details</a></td>
                                     <td><a th:href="@{/show-update-referral-unit-form/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i></a></td>
                                     <td><a th:href="@{/delete-referral-unit/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-times ml-2"></i></a></td>
                                 </tr>

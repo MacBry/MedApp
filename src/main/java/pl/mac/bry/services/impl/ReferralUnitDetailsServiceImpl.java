@@ -31,9 +31,9 @@ public class ReferralUnitDetailsServiceImpl implements ReferralUnitDetailsServic
 
 	@Override
 	@Audit(action = "ReferralUnitDetailsServiceImpl.findReferralUnitDetailsById()")
-	public ReferralUnitDetails findReferralUnitDetailsById(long id) {
-		return referralUnitDetailsRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid Referral Unit Details: " + id));
+	public ReferralUnitDetails findReferralUnitDetailsById(long referralUnitId) {
+		ReferralUnit referralUnit = referralUnitService.findReferralUnitById(referralUnitId);
+		return referralUnit.getReferralUnitDetails();
 	}
 
 	@Override

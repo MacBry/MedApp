@@ -38,7 +38,7 @@ public class ReferralunitDetailsController {
 	}
 	
 	@PostMapping("/add-referral-detail")
-	public String addDetail(@Valid ReferralUnitDetails referralUnitDetails,BindingResult result, Model model) {
+	public String addRederralUnitDetail(@Valid ReferralUnitDetails referralUnitDetails,BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "add-referral-unit-detail-form";
 		}
@@ -48,8 +48,8 @@ public class ReferralunitDetailsController {
 		return "show-referral-unit-details";
 	}
 	
-	@GetMapping("show-update-details-form/{id}")
-	public String showUpdateForm(@PathVariable("id") long id, Model model) {
+	@GetMapping("show-update-referral-unit-details-form/{id}")
+	public String showUpdateReferralUnitDetailForm(@PathVariable("id") long id, Model model) {
 		ReferralUnitDetails referralUnitDetails = referralUnitDetailsService.findReferralUnitDetailsById(id);
 		model.addAttribute("details", referralUnitDetails);
 		return "update-referral-details";
