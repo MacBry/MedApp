@@ -54,4 +54,21 @@ public class ReferralunitDetailsController {
 		model.addAttribute("details", referralUnitDetails);
 		return "update-referral-details";
 	}
+	
+	@PostMapping("/update-referral-unit-detail/{id}")
+	public String updateReferralUnitDetail(@PathVariable("id") long id, @Valid ReferralUnitDetails referralUnitDetails,
+			BindingResult result) {
+		if(result.hasErrors() ) {
+			referralUnitDetails.setId(id);
+			return "update-referral-details";
+		}
+		referralUnitDetailsService.updateReferralUnitDetails(referralUnitDetails);
+		return "redirect:/referral-unit-details/{id}";
+	}
+	
+	@GetMapping("/delete-referral-unit-details/{id}")
+	public String deleteDetails(@PathVariable("id")long id) {
+		referralUnitDetailsService.deleteReferralUnitDetails(id);
+		return "redirect:/referral-unit-details/{id}";
+	}
 }
