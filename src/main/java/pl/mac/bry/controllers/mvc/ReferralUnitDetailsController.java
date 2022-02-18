@@ -14,13 +14,13 @@ import pl.mac.bry.entities.ReferralUnitDetails;
 import pl.mac.bry.services.ReferralUnitDetailsService;
 
 @Controller
-public class ReferralunitDetailsController {
+public class ReferralUnitDetailsController {
 
 	private ReferralUnitDetailsService referralUnitDetailsService;
 	private long id;
 	
 	@Autowired
-	public ReferralunitDetailsController(ReferralUnitDetailsService referralUnitDetailsService) {
+	public ReferralUnitDetailsController(ReferralUnitDetailsService referralUnitDetailsService) {
 		super();
 		this.referralUnitDetailsService = referralUnitDetailsService;
 	}
