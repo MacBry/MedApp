@@ -27,7 +27,7 @@ public class ReferralUnitDetailsController {
 	
 	@GetMapping("/referral-unit-details/{id}")
 	public String showReferralUnitDetail(@PathVariable("id") long id, Model model ) {
-		model.addAttribute("details", referralUnitDetailsService.findReferralUnitDetailsById(id));
+		model.addAttribute("details", referralUnitDetailsService.findReferralDetails(id));
 		this.id = id;
 		return "show-referral-unit-details";
 	}
@@ -44,7 +44,7 @@ public class ReferralUnitDetailsController {
 		}
 		model.addAttribute(referralUnitDetails);
 		referralUnitDetailsService.addDetailToReferralUnit(id, referralUnitDetails);
-		model.addAttribute("details",referralUnitDetailsService.findReferralUnitDetailsById(id));
+		model.addAttribute("details",referralUnitDetailsService.findReferralDetails(id));
 		return "show-referral-unit-details";
 	}
 	

@@ -32,13 +32,13 @@
                 
                 </div>
                 <div>
-                    <p1>NIP:<a th:text="${details != null} ? ${details.getNipNumber()} :''"></a></p1>
+                    <p1>NIP:    <b><a th:text="${details != null} ? ${details.getNipNumber()} :''"></a></b></p1>
                     <br>
-                    <p1>REGON:<a th:text="${details != null} ? ${details.getRegonNumber()} :''"></a></p1>
+                    <p1>REGON:  <b><a th:text="${details != null} ? ${details.getRegonNumber()} :''"></a></b></p1>
                     <br>
-                    <p1>Phone Number:<a th:text="${details != null} ? ${details.getPhoneNumber()} :''"></a></p1>
+                    <p1>Phone Number:   <b><a th:text="${details != null} ? ${details.getPhoneNumber()} :''"></a></b></p1>
                     <br>
-                    <p1>Resort Book Number:<a th:text="${details != null} ? ${details.getResortBookNumber()} :''"></a></p1>
+                    <p1>Resort Book Number:   <b><a th:text="${details != null} ? ${details.getResortBookNumber()} :''"></a></b></p1>
 
                 </div>    
 
@@ -58,7 +58,7 @@
                             </thead>
                             <tbody>
                                 <tr th:each="detail : ${details}">
-									<td><a th:href="@{/show-update-details-form/{id}(id=${detail.id})}" class="btn btn-info"><i class="fas fa-print"></i></i>Edit</a></td>
+									<td><a th:href="@{show-update-referral-unit-details-form/{id}(id=${detail.id})}" class="btn btn-info"><i class="fas fa-print"></i></i>Edit</a></td>
                                     <td><a th:href="@{/delete-details/{id}(id=${detail.id})}" class="btn btn-info"><i class="far fa-trash-alt"></i>Delete</a></td>
                                 </tr>
                             </tbody>

@@ -7,8 +7,7 @@ import pl.mac.bry.entities.ReferralUnitDetails;
 
 public interface ReferralUnitDetailsService {
 	
-	ReferralUnitDetails findReferralUnitDetailsById(long referralUnitId);
-	
+	ReferralUnitDetails findReferralUnitDetailsById(long id);	
 	ReferralUnitDetails findReferralUnitDetailsByNipNumber(long nipNumber);
 	
 	ReferralUnitDetails findReferralUnitDetailsByRegonNumber(long regonNumber);
@@ -30,4 +29,6 @@ public interface ReferralUnitDetailsService {
 	void deleteReferralUnitDetails(long id);
 
 	void addDetailToReferralUnit(long id, ReferralUnitDetails referralUnitDetails);
+	
+	ReferralUnitDetails findReferralDetails(long referralId);
 }

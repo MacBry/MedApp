@@ -31,9 +31,9 @@ public class ReferralUnitDetailsServiceImpl implements ReferralUnitDetailsServic
 
 	@Override
 	@Audit(action = "ReferralUnitDetailsServiceImpl.findReferralUnitDetailsById()")
-	public ReferralUnitDetails findReferralUnitDetailsById(long referralUnitId) {
-		ReferralUnit referralUnit = referralUnitService.findReferralUnitById(referralUnitId);
-		return referralUnit.getReferralUnitDetails();
+	public ReferralUnitDetails findReferralUnitDetailsById(long id) {
+		return referralUnitDetailsRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid id: " + id));
 	}
 
 	@Override
@@ -107,5 +107,11 @@ public class ReferralUnitDetailsServiceImpl implements ReferralUnitDetailsServic
 		referralUnitService.updateReferralUnit(referralUnit);
 	}
 
+	@Override
+	@Audit(action =  "ReferralUnitDetailsServiceImpl.findReferralDetail()")
+	public ReferralUnitDetails findReferralDetails(long referralId) {
+		ReferralUnit referralUnit = referralUnitService.findReferralUnitById(referralId);
+		return referralUnit.getReferralUnitDetails(); 
+	}
 	
 }
