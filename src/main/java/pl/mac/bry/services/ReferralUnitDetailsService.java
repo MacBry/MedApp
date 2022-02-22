@@ -24,7 +24,7 @@ public interface ReferralUnitDetailsService {
 	
 	void addReferralUnitDetails(ReferralUnitDetails referralUnitDetails);
 	
-	void updateReferralUnitDetails(ReferralUnitDetails referralUnitDetails);
+	void updateReferralUnitDetails(long id, ReferralUnitDetails referralUnitDetails);
 	
 	void deleteReferralUnitDetails(long id);
 

@@ -48,27 +48,27 @@ public class ReferralUnitDetailsController {
 		return "show-referral-unit-details";
 	}
 	
-	@GetMapping("show-update-referral-unit-details-form/{id}")
-	public String showUpdateReferralUnitDetailForm(@PathVariable("id") long id, Model model) {
-		ReferralUnitDetails referralUnitDetails = referralUnitDetailsService.findReferralUnitDetailsById(id);
+	@GetMapping("show-update-referral-unit-details-form/{detId}")
+	public String showUpdateReferralUnitDetailForm(@PathVariable("detId") long detId, Model model) {
+		ReferralUnitDetails referralUnitDetails = referralUnitDetailsService.findReferralUnitDetailsById(detId);
 		model.addAttribute("details", referralUnitDetails);
 		return "update-referral-details";
 	}
 	
-	@PostMapping("/update-referral-unit-detail/{id}")
-	public String updateReferralUnitDetail(@PathVariable("id") long id, @Valid ReferralUnitDetails referralUnitDetails,
+	@PostMapping("/update-referral-unit-detail/{detId}")
+	public String updateReferralUnitDetail(@PathVariable("detId") long detId, @Valid ReferralUnitDetails referralUnitDetails,
 			BindingResult result) {
 		if(result.hasErrors() ) {
-			referralUnitDetails.setId(id);
+			referralUnitDetails.setId(detId);
 			return "update-referral-details";
 		}
-		referralUnitDetailsService.updateReferralUnitDetails(referralUnitDetails);
-		return "redirect:/referral-unit-details/{id}";
+		referralUnitDetailsService.updateReferralUnitDetails(detId, referralUnitDetails);
+		return "redirect:/referral-unit-details/{detId}";
 	}
 	
-	@GetMapping("/delete-referral-unit-details/{refId}")
-	public String deleteDetails(@PathVariable("refId")long refId ) {
-		referralUnitDetailsService.deleteReferralUnitDetails(refId);
+	@GetMapping("/delete-referral-unit-details/")
+	public String deleteDetails() {
+		referralUnitDetailsService.deleteReferralUnitDetails(1);
 		return "redirect:/show-referral-units";
 	}
 }

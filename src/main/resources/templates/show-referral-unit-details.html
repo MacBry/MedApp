@@ -59,7 +59,7 @@
                             <tbody>
                                 <tr th:each="detail : ${details}">
 									<td><a th:href="@{/show-update-referral-unit-details-form/{id}(id=${detail.id})}" class="btn btn-info"><i class="fas fa-print"></i></i>Edit</a></td>
-                                    <td><a th:href="@{/delete-referral-unit-details/{id}(id=${detail.id})}" class="btn btn-info"><i class="far fa-trash-alt"></i>Delete</a></td>
+                                    <td><a th:href="@{/delete-referral-unit-details/}" class="btn btn-info"><i class="far fa-trash-alt"></i>Delete</a></td>
                                 </tr>
                             </tbody>
                         </table>

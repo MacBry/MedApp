@@ -88,8 +88,11 @@ public class ReferralUnitDetailsServiceImpl implements ReferralUnitDetailsServic
 
 	@Override
 	@Audit(action = "ReferralUnitDetailsServiceImpl.updateReferralUnitDetails()")
-	public void updateReferralUnitDetails(ReferralUnitDetails referralUnitDetails) {
-		referralUnitDetailsRepository.save(referralUnitDetails);	
+	public void updateReferralUnitDetails(long id, ReferralUnitDetails referralUnitDetails) {
+		ReferralUnit ref = referralUnitService.findReferralUnitById(id);
+		ref.setReferralUnitDetails(referralUnitDetails);
+		referralUnitDetailsRepository.save(referralUnitDetails);
+		referralUnitService.addReferralUnit(ref);
 	}
 
 	@Override

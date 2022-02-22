@@ -99,8 +99,8 @@ public class ReferralUnitDetailsRESTController {
 	}
 	
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void updateReferralUnitDetails(@RequestBody ReferralUnitDetails referralUnitDetails) {
-		referralUnitDetailsService.updateReferralUnitDetails(referralUnitDetails);
+	public void updateReferralUnitDetails(@RequestBody long id,@RequestBody ReferralUnitDetails referralUnitDetails) {
+		referralUnitDetailsService.updateReferralUnitDetails(id, referralUnitDetails);
 	}
 	
 	@DeleteMapping("/delete/id/{id}")
