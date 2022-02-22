@@ -1,4 +1,4 @@
-package pl.mac.bry.entities;
+package pl.mac.bry.entities.enums;
 
 public enum SampleType {
 	SERUM_SAMPLE("Serum sample"),

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.repository.CrudRepository;
 
 import pl.mac.bry.entities.Sample;
-import pl.mac.bry.entities.SampleType;
+import pl.mac.bry.entities.enums.SampleType;
 
 public interface SampleRepository extends CrudRepository<Sample, Long> {
 	

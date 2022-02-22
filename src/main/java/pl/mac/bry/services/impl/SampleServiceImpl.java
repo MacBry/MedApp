@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import pl.mac.bry.entities.Patient;
 import pl.mac.bry.entities.Sample;
-import pl.mac.bry.entities.SampleType;
+import pl.mac.bry.entities.enums.SampleType;
 import pl.mac.bry.repositories.SampleRepository;
 import pl.mac.bry.services.PatientService;
 import pl.mac.bry.services.SampleService;

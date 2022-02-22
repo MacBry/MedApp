@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
+import pl.mac.bry.entities.enums.StreetPrefix;
 
 @Entity
 @Data
@@ -26,10 +27,16 @@ public class Address implements Serializable {
 	private String country;
 	
 	private String city;
+	
+	private StreetPrefix streetPrefix;
 		
 	private String street;
 
 	private String zipCode;
+	
+	private String buildingNumber;
+	
+	private String localNumber;
 	
 	@ManyToOne
 	@JoinColumn(name = "patient_details_id")

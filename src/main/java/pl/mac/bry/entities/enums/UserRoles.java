@@ -1,4 +1,4 @@
-package pl.mac.bry.entities;
+package pl.mac.bry.entities.enums;
 
 public enum UserRoles {
 	DEFAULT_ROLE("ROLE_USER"),

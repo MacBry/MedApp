@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import pl.mac.bry.entities.enums.SampleType;
 
 @Entity
 @Data

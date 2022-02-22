@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import pl.mac.bry.entities.User;
 import pl.mac.bry.entities.UserRole;
-import pl.mac.bry.entities.UserRoles;
+import pl.mac.bry.entities.enums.UserRoles;
 import pl.mac.bry.repositories.UserRepository;
 import pl.mac.bry.repositories.UserRoleRepository;
 import pl.mac.bry.services.UserRegistrationService;

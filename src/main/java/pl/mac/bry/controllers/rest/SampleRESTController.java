@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.mac.bry.entities.Sample;
-import pl.mac.bry.entities.SampleType;
+import pl.mac.bry.entities.enums.SampleType;
 import pl.mac.bry.services.SampleService;
 
 @RestController

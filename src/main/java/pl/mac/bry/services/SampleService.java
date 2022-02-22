@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import pl.mac.bry.entities.Sample;
-import pl.mac.bry.entities.SampleType;
+import pl.mac.bry.entities.enums.SampleType;
 
 public interface SampleService {
 	
