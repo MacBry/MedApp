@@ -17,8 +17,7 @@ import pl.mac.bry.services.ReferralUnitDetailsService;
 public class ReferralUnitDetailsController {
 
 	private ReferralUnitDetailsService referralUnitDetailsService;
-	private long id;
-	
+	private long refId;
 	@Autowired
 	public ReferralUnitDetailsController(ReferralUnitDetailsService referralUnitDetailsService) {
 		super();
@@ -26,9 +25,9 @@ public class ReferralUnitDetailsController {
 	}
 	
 	@GetMapping("/referral-unit-details/{id}")
-	public String showReferralUnitDetail(@PathVariable("id") long id, Model model ) {
-		model.addAttribute("details", referralUnitDetailsService.findReferralDetails(id));
-		this.id = id;
+	public String showReferralUnitDetail(@PathVariable("id") long refId, Model model ) {
+		model.addAttribute("details", referralUnitDetailsService.findReferralDetails(refId));
+		this.refId = refId;
 		return "show-referral-unit-details";
 	}
 	
@@ -43,8 +42,9 @@ public class ReferralUnitDetailsController {
 			return "add-referral-unit-detail-form";
 		}
 		model.addAttribute(referralUnitDetails);
-		referralUnitDetailsService.addDetailToReferralUnit(id, referralUnitDetails);
-		model.addAttribute("details",referralUnitDetailsService.findReferralDetails(id));
+		referralUnitDetailsService.addDetailToReferralUnit(refId, referralUnitDetails);
+		model.addAttribute("details",referralUnitDetailsService.findReferralDetails(refId));
+		referralUnitDetailsService.findReferralDetails(refId).getId();
 		return "show-referral-unit-details";
 	}
 	
@@ -66,9 +66,9 @@ public class ReferralUnitDetailsController {
 		return "redirect:/referral-unit-details/{id}";
 	}
 	
-	@GetMapping("/delete-referral-unit-details/{id}")
-	public String deleteDetails(@PathVariable("id")long id) {
-		referralUnitDetailsService.deleteReferralUnitDetails(id);
-		return "redirect:/referral-unit-details/{id}";
+	@GetMapping("/delete-referral-unit-details/{refId}")
+	public String deleteDetails(@PathVariable("refId")long refId ) {
+		referralUnitDetailsService.deleteReferralUnitDetails(refId);
+		return "redirect:/show-referral-units";
 	}
 }

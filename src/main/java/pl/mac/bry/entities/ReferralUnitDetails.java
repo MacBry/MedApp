@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
 
@@ -31,4 +32,11 @@ public class ReferralUnitDetails implements Serializable {
 	private String email;
 	
 	private String resortBookNumber;
+	
+	@OneToOne
+	private ReferralUnit referralUnit;
+	
+	public void addReferralUnit(ReferralUnit referralUnit) {
+		this.referralUnit = referralUnit;
+	}
 }

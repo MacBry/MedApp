@@ -1,6 +1,7 @@
 package pl.mac.bry.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -94,7 +95,14 @@ public class ReferralUnitDetailsServiceImpl implements ReferralUnitDetailsServic
 	@Override
 	@Audit(action = "ReferralUnitDetailsServiceImpl.deleteReferralUnitDetails()")
 	public void deleteReferralUnitDetails(long id) {
-		ReferralUnitDetails referralUnitDetails = findReferralUnitDetailsById(id);
+		Optional<ReferralUnitDetails> opt = referralUnitDetailsRepository.findById(id);
+		ReferralUnitDetails details = opt.get();
+		long refId = details.getReferralUnit().getId();
+		ReferralUnit referralUnit = referralUnitService.findReferralUnitById(refId);
+		long detailId = referralUnit.getReferralUnitDetails().getId();
+		System.out.println(detailId);
+		referralUnit.setReferralUnitDetails(null);
+		ReferralUnitDetails referralUnitDetails = findReferralUnitDetailsById(detailId);
 		referralUnitDetailsRepository.delete(referralUnitDetails);
 	}
 
@@ -104,6 +112,7 @@ public class ReferralUnitDetailsServiceImpl implements ReferralUnitDetailsServic
 		ReferralUnit referralUnit = referralUnitService.findReferralUnitById(id);
 		referralUnitDetailsRepository.save(referralUnitDetails);
 		referralUnit.addReferralUnitDetail(referralUnitDetails);
+		referralUnitDetails.addReferralUnit(referralUnit);
 		referralUnitService.updateReferralUnit(referralUnit);
 	}
 
