@@ -1,6 +1,7 @@
 package pl.mac.bry.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.DocumentException;
@@ -10,6 +11,7 @@ import pl.mac.bry.entities.PdfLabelTable;
 import pl.mac.bry.services.PdfTableService;
 
 @Service
+@Qualifier("LABEL")
 public class PdfTableLabelServiceImpl implements PdfTableService {
 
 	private PdfLabelTable pdfLabelTable;

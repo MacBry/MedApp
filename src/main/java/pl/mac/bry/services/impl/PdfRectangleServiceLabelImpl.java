@@ -1,6 +1,7 @@
 package pl.mac.bry.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.Rectangle;
@@ -11,12 +12,13 @@ import pl.mac.bry.services.PdfRectangleService;
 
 
 @Service
-public class PdfRectangleServiceImpl implements PdfRectangleService {
+@Qualifier("LABEL")
+public class PdfRectangleServiceLabelImpl implements PdfRectangleService {
 
 	private PdfLabelRectangle pdfLabelRectangle;
 	
 	@Autowired
-	private PdfRectangleServiceImpl(PdfLabelRectangle pdfLabelRectangle) {
+	private PdfRectangleServiceLabelImpl(PdfLabelRectangle pdfLabelRectangle) {
 		super();
 		this.pdfLabelRectangle = pdfLabelRectangle;
 	}

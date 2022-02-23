@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.Document;
@@ -35,8 +36,8 @@ public class PdfSampleLabelExporterImpl implements PdfExporter {
 	private Sample sample;
 
 	@Autowired
-	public PdfSampleLabelExporterImpl(PdfDocumentService documentService,
-			PdfTableService tableService) {
+	public PdfSampleLabelExporterImpl(@Qualifier("LABEL") PdfDocumentService documentService,
+			@Qualifier("LABEL") PdfTableService tableService) {
 		super();
 		this.documentService = documentService;
 		this.tableService = tableService;
