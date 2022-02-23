@@ -69,7 +69,7 @@
                                         <span th:utext="${referralUnit.address.getCountry()}"></span><br>
                                         <span th:utext="${referralUnit.address.getZipCode()}"></span>
                                         <span th:utext="${referralUnit.address.getCity()}"></span><br>
-                                        <span th:utext="${referralUnit.address.getStreetPrefix()} + ' ' + ${referralUnit.address.getStreet()}"></span>
+                                        <span th:utext="${referralUnit.address.streetPrefix.getDescription()} + ' ' + ${referralUnit.address.getStreet()}"></span>
 										<span th:utext="${referralUnit.address.getBuildingNumber()} + '/' + ${referralUnit.address.getApartmentNumber()}"></span>
                                     </td>
 									<td><a th:href="@{/referral-unit-details/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i>Details</a></td>

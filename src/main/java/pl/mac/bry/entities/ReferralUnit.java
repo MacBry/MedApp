@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import lombok.Data;
 
 @Entity
@@ -26,6 +29,8 @@ public class ReferralUnit implements Serializable {
 	
 	private String shortName;
 	
+	@OneToOne
+	@Cascade(CascadeType.ALL)
 	private Address address =new Address();
 	
 	@OneToOne
