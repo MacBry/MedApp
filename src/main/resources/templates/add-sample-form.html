@@ -31,7 +31,7 @@
                             <div class="form-group col-md-6">
                                 <label for="sampleType" class="col-form-label">Sample Type</label>
                                 <select class="form-control" th:field="*{sampleType}">
-                                <option th:each="sampleType : ${T(pl.mac.bry.entities.SampleType).values()}"
+                                <option th:each="sampleType : ${T(pl.mac.bry.entities.enums.SampleType).values()}"
                                 	
                                 	th:value="${sampleType}"
                                 	th:text="${sampleType.getDescription()}">

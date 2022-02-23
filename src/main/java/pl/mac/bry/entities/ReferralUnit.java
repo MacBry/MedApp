@@ -26,7 +26,7 @@ public class ReferralUnit implements Serializable {
 	
 	private String shortName;
 	
-	private Address address;
+	private Address address =new Address();
 	
 	@OneToOne
 	private ReferralUnitDetails referralUnitDetails;

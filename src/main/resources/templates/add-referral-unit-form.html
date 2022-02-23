@@ -34,7 +34,8 @@
                                 <span th:if="${#fields.hasErrors('shortName')}" th:errors="*{shortName}" class="text-info"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Address</label>
+							<br>
+                                <b><label>Address</label></b>
                             </div><div class="form-group col-md-6">
                             </div>
                             <div class="form-group col-md-6">
@@ -42,20 +43,44 @@
                                 <input type="text" th:field="*{address.country}" class="form-control" id="address.country" placeholder="Country">
                                 <span th:if="${#fields.hasErrors('address.country')}" th:errors="*{address.country}" class="text-info"></span>
                             </div>
+							<div class="form-group col-md-6">
+                                
+                            </div>
+							 <div class="form-group col-md-6">
+                                <label for="address.zipCode" class="col-form-label">Zip Code</label>
+                                <input type="text" th:field="*{address.zipCode}" class="form-control" id="address.zipCode" placeholder="Zip Code">
+                                <span th:if="${#fields.hasErrors('address.zipCode')}" th:errors="*{address.zipCode}" class="text-info"></span>
+                            </div>
                             <div class="form-group col-md-6">
                                 <label for="address.city" class="col-form-label">City</label>
                                 <input type="text" th:field="*{address.city}" class="form-control" id="address.city" placeholder="City">
                                 <span th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}" class="text-info"></span>
                             </div>
+							<div class="form-group col-md-6">
+                                <label for="streetPrefix" class="col-form-label">Prefix</label>
+                                <select class="form-control" th:field="*{address.streetPrefix}">
+                                <option th:each="streetPrefix : ${T(pl.mac.bry.entities.enums.StreetPrefix).values()}"
+                                	
+                                	th:value="${streetPrefix}"
+                                	th:text="${streetPrefix.getDescription()} +' '+ '-' + ' ' + ${streetPrefix}">
+                                </option>
+                                </select>           
+                            </div>
+							
                             <div class="form-group col-md-6">
                                 <label for="address.street" class="col-form-label">Street</label>
                                 <input type="text" th:field="*{address.street}" class="form-control" id="address.street" placeholder="Street">
                                 <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" class="text-info"></span>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="address.zipCode" class="col-form-label">Zip Code</label>
-                                <input type="text" th:field="*{address.zipCode}" class="form-control" id="address.zipCode" placeholder="Zip Code">
-                                <span th:if="${#fields.hasErrors('address.zipCode')}" th:errors="*{address.zipCode}" class="text-info"></span>
+							<div class="form-group col-md-6">
+                                <label for="address.buildingNumber" class="col-form-label">Building Number</label>
+                                <input type="text" th:field="*{address.buildingNumber}" class="form-control" id="address.buildingNumber" placeholder="Building Number">
+                                <span th:if="${#fields.hasErrors('address.buildingNumber')}" th:errors="*{address.buildingNumber}" class="text-info"></span>
+                            </div>
+							<div class="form-group col-md-6">
+                                <label for="address.apartmentNumber" class="col-form-label">Apartment Number</label>
+                                <input type="text" th:field="*{address.apartmentNumber}" class="form-control" id="address.apartmentNumber" placeholder="Apartment Number">
+                                <span th:if="${#fields.hasErrors('address.apartmentNumber')}" th:errors="*{address.apartmentNumber}" class="text-info"></span>
                             </div>
                             	
                             

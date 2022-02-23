@@ -36,7 +36,7 @@ public class Address implements Serializable {
 	
 	private String buildingNumber;
 	
-	private String localNumber;
+	private String apartmentNumber ;
 	
 	@ManyToOne
 	@JoinColumn(name = "patient_details_id")
