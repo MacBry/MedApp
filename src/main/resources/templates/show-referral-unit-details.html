@@ -39,6 +39,8 @@
                     <p1>Phone Number:   <b><a th:text="${details != null} ? ${details.getPhoneNumber()} :''"></a></b></p1>
                     <br>
                     <p1>Resort Book Number:   <b><a th:text="${details != null} ? ${details.getResortBookNumber()} :''"></a></b></p1>
+					<br>
+                    <p1>Deadline  <b><a th:text="${details != null} ? ${details.deadline.getDescription()} :''"></a></b></p1>
 
                 </div>    
 

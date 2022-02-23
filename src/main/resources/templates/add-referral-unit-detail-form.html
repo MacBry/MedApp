@@ -48,6 +48,16 @@
                                 <input type="text" th:field="*{resortBookNumber}" class="form-control" id="resortBookNumber" placeholder="Resort Book Number">
                                 <span th:if="${#fields.hasErrors('resortBookNumber')}" th:errors="*{resortBookNumber}" class="text-info"></span>
                             </div>
+							<div class="form-group col-md-6">
+                                <label for="deadline" class="col-form-label">Deadline</label>
+                                <select class="form-control" th:field="*{deadline}">
+                                <option th:each="deadline : ${T(pl.mac.bry.entities.enums.Deadline).values()}"
+                                	
+                                	th:value="${deadline}"
+                                	th:text="${deadline.getDescription()} +' '+ '-' + ' ' + ${deadline}">
+                                </option>
+                                </select>           
+                            </div>
                             	
                             
                         </div>

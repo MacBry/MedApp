@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
+import pl.mac.bry.entities.enums.Deadline;
 
 @Entity
 @Data
@@ -32,6 +33,8 @@ public class ReferralUnitDetails implements Serializable {
 	private String email;
 	
 	private String resortBookNumber;
+	
+	private Deadline deadline;
 	
 	@OneToOne
 	private ReferralUnit referralUnit;

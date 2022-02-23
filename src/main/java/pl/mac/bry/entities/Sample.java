@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,5 +40,8 @@ public class Sample implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
+	
+	@OneToOne
+	private ReferralUnit referralUnit;
 
 }
