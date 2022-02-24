@@ -114,6 +114,7 @@ public class SampleController {
         
         Sample sample = sampleService.findSampleById(id);
         sampleLabelPdfExporter.setSample(sample);
+        System.out.println(sample.getRejestrationDateTime());
         sampleLabelPdfExporter.export(response);
 	}
 	

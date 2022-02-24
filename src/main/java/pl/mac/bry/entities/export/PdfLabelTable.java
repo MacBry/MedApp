@@ -1,4 +1,4 @@
-package pl.mac.bry.entities;
+package pl.mac.bry.entities.export;
 
 import lombok.Data;
 

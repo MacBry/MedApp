@@ -1,4 +1,4 @@
-package pl.mac.bry.services.impl;
+package pl.mac.bry.services.impl.export;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -24,12 +24,13 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import pl.mac.bry.entities.Sample;
-import pl.mac.bry.services.PdfDocumentService;
-import pl.mac.bry.services.PdfExporter;
-import pl.mac.bry.services.PdfTableService;
+import pl.mac.bry.services.export.PdfDocumentService;
+import pl.mac.bry.services.export.PdfExporter;
+import pl.mac.bry.services.export.PdfTableService;
 
 @Service
-public class PdfSampleLabelExporterImpl implements PdfExporter {
+@Qualifier("SAMPLE-LABEL")
+public class PdfSampleLabelExporterImpl implements PdfExporter <Sample> {
 
 	private PdfDocumentService documentService;
 	private PdfTableService tableService;
@@ -86,6 +87,12 @@ public class PdfSampleLabelExporterImpl implements PdfExporter {
 
 		document.add(table);
 		document.close();
+	}
+
+	@Override
+	public void setModel(Sample t) {
+		this.sample = t;
+		
 	}
 
 }

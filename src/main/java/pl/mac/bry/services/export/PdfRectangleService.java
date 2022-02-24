@@ -1,4 +1,4 @@
-package pl.mac.bry.services;
+package pl.mac.bry.services.export;
 
 import com.itextpdf.text.Rectangle;
 

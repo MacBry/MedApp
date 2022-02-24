@@ -3,9 +3,9 @@ package pl.mac.bry.configurations.exports;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import pl.mac.bry.entities.PdfLabelDocument;
-import pl.mac.bry.entities.PdfLabelRectangle;
-import pl.mac.bry.entities.PdfLabelTable;
+import pl.mac.bry.entities.export.PdfLabelDocument;
+import pl.mac.bry.entities.export.PdfLabelRectangle;
+import pl.mac.bry.entities.export.PdfLabelTable;
 import pl.mac.bry.util.SampleLabelPdfExporter;
 
 @Configuration

@@ -1,4 +1,4 @@
-package pl.mac.bry.services.impl;
+package pl.mac.bry.services.impl.export;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.Rectangle;
 
-import pl.mac.bry.entities.PdfLabelRectangle;
-import pl.mac.bry.services.PdfRectangleService;
+import pl.mac.bry.entities.export.PdfLabelRectangle;
+import pl.mac.bry.services.export.PdfRectangleService;
 
 
 

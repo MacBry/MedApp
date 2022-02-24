@@ -22,17 +22,17 @@ import com.itextpdf.text.DocumentException;
 
 import pl.mac.bry.entities.ReferralUnit;
 import pl.mac.bry.services.ReferralUnitService;
-import pl.mac.bry.services.impl.PdfRefUnitAddressLabelExporterImpl;
+import pl.mac.bry.services.export.PdfExporter;
 
 @Controller
 public class ReferralUnitController {
 	
 	private ReferralUnitService referralUnitService;
-	private PdfRefUnitAddressLabelExporterImpl exporter;
+	private PdfExporter<ReferralUnit> exporter;
 
 	@Autowired
 	public ReferralUnitController(ReferralUnitService referralUnitService,
-			@Qualifier("REF-ADDRESS-LABEL")PdfRefUnitAddressLabelExporterImpl exporter) {
+			@Qualifier("REF-ADDRESS-LABEL")PdfExporter<ReferralUnit> exporter) {
 		super();
 		this.referralUnitService = referralUnitService;
 		this.exporter = exporter;
@@ -105,7 +105,7 @@ public class ReferralUnitController {
         response.setHeader(headerKey, headerValue);
         
         ReferralUnit referralUnit = referralUnitService.findReferralUnitById(id);
-        exporter.setReferralUnit(referralUnit);
+        exporter.setModel(referralUnit);
         exporter.export(response);
 	}
 }

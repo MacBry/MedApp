@@ -1,4 +1,4 @@
-package pl.mac.bry.services.impl;
+package pl.mac.bry.services.impl.export;
 
 import java.io.IOException;
 
@@ -8,26 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.Table;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-
 import pl.mac.bry.entities.ReferralUnit;
-import pl.mac.bry.services.PdfDocumentService;
-import pl.mac.bry.services.PdfExporter;
-import pl.mac.bry.services.PdfTableService;
+import pl.mac.bry.services.export.PdfDocumentService;
+import pl.mac.bry.services.export.PdfExporter;
+import pl.mac.bry.services.export.PdfTableService;
 
 @Service
 @Qualifier("REF-ADDRESS-LABEL")
-public class PdfRefUnitAddressLabelExporterImpl implements PdfExporter {
+public class PdfRefUnitAddressLabelExporterImpl implements PdfExporter <ReferralUnit> {
 	
 	private PdfDocumentService documentService;
 	private PdfTableService pdfTableService;
@@ -42,19 +38,11 @@ public class PdfRefUnitAddressLabelExporterImpl implements PdfExporter {
 	}
 	
 
-	public void setReferralUnit(ReferralUnit referralUnit) {
-		this.referralUnit = referralUnit;
-	}
-
-
-
 	@Override
 	public void export(HttpServletResponse response) throws DocumentException, IOException {
 		Document document = documentService.createDocument();
-		PdfWriter pdfWriter = PdfWriter.getInstance(document, response.getOutputStream());
 		document.open();
 		PdfPTable table = pdfTableService.createPdfPTable();
-		PdfContentByte pdfContentByte = pdfWriter.getDirectContent();
 		
 		//1 row
 		PdfPCell cell = new PdfPCell(new Phrase(referralUnit.getShortName(), new Font(FontFamily.HELVETICA, 8)));
@@ -87,6 +75,14 @@ public class PdfRefUnitAddressLabelExporterImpl implements PdfExporter {
 		
 		document.add(table);
 		document.close();
+	}
+
+
+
+	@Override
+	public void setModel(ReferralUnit t) {
+		this.referralUnit=t;
+		
 	}
 
 }

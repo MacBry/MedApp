@@ -69,12 +69,13 @@ public class SampleLabelPdfExporter {
 		
 		//second row
 		String secondRowString = sample.getPatient().getFirstName() + " " + sample.getPatient().getLastName() + " " + sample.getPatient().getPesel();
+		String refeNumber =  "88-" + sample.getId();
 		cell = new PdfPCell(new Phrase(secondRowString, new Font(FontFamily.HELVETICA, 8)));
 		cell.setFixedHeight(15);
         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cell.setBorder(Rectangle.BOX);
         table.addCell(cell);
-        cell = new PdfPCell(new Phrase("88-" + sample.getReferralUnit().getId(),new Font(FontFamily.HELVETICA, 8)));
+        cell = new PdfPCell(new Phrase(refeNumber ,new Font(FontFamily.HELVETICA, 8)));
         table.addCell(cell);
         Barcode128 code128 = new Barcode128();
         code128.setCode("Z 5160-" + sample.getId());

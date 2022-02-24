@@ -1,4 +1,4 @@
-package pl.mac.bry.services.impl;
+package pl.mac.bry.services.impl.export;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfPTable;
 
-import pl.mac.bry.entities.PdfLabelTable;
-import pl.mac.bry.services.PdfTableService;
+import pl.mac.bry.entities.export.PdfLabelTable;
+import pl.mac.bry.services.export.PdfTableService;
 
 @Service
 @Qualifier("LABEL")
