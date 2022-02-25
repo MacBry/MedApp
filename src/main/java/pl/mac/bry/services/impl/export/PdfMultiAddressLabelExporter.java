@@ -44,7 +44,6 @@ public class PdfMultiAddressLabelExporter implements PdfExporter<List<ReferralUn
 	@Override
 	public void export(HttpServletResponse response) throws DocumentException, IOException {
 		Document document = documentService.createDocument();
-		document.open();
 		PdfPTable table = pdfTableService.createPdfPTable();
 		
 		PdfWriter pdfWriter = PdfWriter.getInstance(document, response.getOutputStream());

@@ -25,15 +25,18 @@ public class ReferralUnitPdfExportController {
 
 	private ReferralUnitService referralUnitService;
 	private PdfExporter<List<ReferralUnit>> multiExporter;
+	private PdfExporter<List<ReferralUnit>> a4Exporter;
 	private PdfExporter<ReferralUnit> exporter;
 
 	@Autowired
 	public ReferralUnitPdfExportController(ReferralUnitService referralUnitService,
 			@Qualifier("REFF-ADDRESS-MULTI-EXPORT")PdfExporter<List<ReferralUnit>> multiExporter,
-			@Qualifier("REF-ADDRESS-LABEL")PdfExporter<ReferralUnit> exporter) {
+			@Qualifier("REF-ADDRESS-LABEL")PdfExporter<ReferralUnit> exporter,
+			@Qualifier("PDF-A4-REF-UNIT-RAPORT-EXPORTER")PdfExporter<List<ReferralUnit>> a4Exporter) {
 		super();
 		this.referralUnitService = referralUnitService;
 		this.multiExporter = multiExporter;
+		this.a4Exporter = a4Exporter;
 		this.exporter = exporter;
 		
 	}
@@ -56,6 +59,15 @@ public class ReferralUnitPdfExportController {
         List<ReferralUnit> referralUnit = (List<ReferralUnit>) referralUnitService.getAllReferralUnits();
         multiExporter.setModel(referralUnit);
         multiExporter.export(response);
+	}
+	
+	@GetMapping("/ref-pdf-list/all")
+	public void exportAllReffUnitA4Pdf(HttpServletResponse response) throws DocumentException, IOException {
+		documentFormat(response);
+        
+        List<ReferralUnit> referralUnit = (List<ReferralUnit>) referralUnitService.getAllReferralUnits();
+        a4Exporter.setModel(referralUnit);
+        a4Exporter.export(response);
 	}
 	
 	private void documentFormat(HttpServletResponse response) {
