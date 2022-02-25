@@ -61,22 +61,25 @@ public class SampleLabelPdfExporter {
 		PdfContentByte pdfContentByte = pdfWriter.getDirectContent();
 		
 		//first row
-		PdfPCell cell = new PdfPCell(new Phrase("ORS SAMPLE", new Font(FontFamily.HELVETICA, 8)));
+		String name = sample.getPatient().getFirstName() + " " + sample.getPatient().getLastName();
+		String pesel = sample.getPatient().getPesel();
+		String refeNumber =  "88-" + sample.getId();
+		PdfPCell cell = new PdfPCell(new Phrase(name, new Font(FontFamily.HELVETICA, 8)));
 		cell.setFixedHeight(15);
 		cell.setBorder(Rectangle.BOX);
 		cell.setColspan(2);
 		table.addCell(cell);
 		
 		//second row
-		String secondRowString = sample.getPatient().getFirstName() + " " + sample.getPatient().getLastName() + " " + sample.getPatient().getPesel();
-		String refeNumber =  "88-" + sample.getId();
-		cell = new PdfPCell(new Phrase(secondRowString, new Font(FontFamily.HELVETICA, 8)));
+		cell = new PdfPCell(new Phrase(pesel, new Font(FontFamily.HELVETICA, 8)));
 		cell.setFixedHeight(15);
         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cell.setBorder(Rectangle.BOX);
         table.addCell(cell);
+        
         cell = new PdfPCell(new Phrase(refeNumber ,new Font(FontFamily.HELVETICA, 8)));
         table.addCell(cell);
+        
         Barcode128 code128 = new Barcode128();
         code128.setCode("Z 5160-" + sample.getId());
         code128.setCodeType(Barcode128.CODE128);
@@ -87,7 +90,6 @@ public class SampleLabelPdfExporter {
         table.addCell(cell);
         
         // third row
-        table.addCell(cell);
         cell = new PdfPCell(new Phrase("Donation date " + LocalDate.now(), new Font(FontFamily.HELVETICA, 6)));
         cell.setBorder(Rectangle.BOX);
         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);

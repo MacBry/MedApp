@@ -26,6 +26,7 @@ public class PdfTableRefUnitAddressServiceImpl implements PdfTableService {
 
 	@Override
 	public PdfPTable createPdfPTable() throws DocumentException {
+
 		PdfPTable table = new PdfPTable(this.referralUnitAddresLabelTable.getNumberOfColumns());
 		table.setTotalWidth(new float [] {this.referralUnitAddresLabelTable.getFirstColumnWidth(), 
 				this.referralUnitAddresLabelTable.getSecondColumnWidth()});

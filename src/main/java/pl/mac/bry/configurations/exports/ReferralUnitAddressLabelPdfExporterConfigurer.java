@@ -11,6 +11,7 @@ public class ReferralUnitAddressLabelPdfExporterConfigurer {
 	@Bean
 	public PdfReferralUnitAddressTable pdfRefUnitAddressLableTable() {
 		PdfReferralUnitAddressTable table = new PdfReferralUnitAddressTable();
+
 		table.setFirstColumnWidth(130);
 		table.setSecondColumnWidth(10);
 		table.setNumberOfColumns(2);

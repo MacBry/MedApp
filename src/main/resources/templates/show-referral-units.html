@@ -38,10 +38,25 @@
 								<input type="submit" value="Find Referral Unit" class="btn btn-info">
 								
 								<a href="/show-add-referral-unit-form" class="btn btn-info"><i class="fas fa-user-injured"></i> Add Referral Unit</a>
-							
+								
+                            </div>
+							<div class="form-group col-md-10 mt-1">
+								
+								
+								<a href="/print-ref-label/all" class="btn btn-info"><i class="fas fa-print"></i> Print All Address Label</a>  
+								<a href="/print-ref-label/deadline" class="btn btn-info"><i class="fas fa-print"></i> Print Address Label by Deadline</a>  
+								
+                            </div>
+							<div class="form-group col-md-10 mt-1">
+								
+								
+								<a href="/ref-pdf-list/all" class="btn btn-info"><i class="fas fa-print"></i> Export Referral Units to PDF</a>  
+						
+								
                             </div>
 				 </form>
-                        
+				 
+            
                             
             
 		
@@ -56,6 +71,7 @@
                                     <th>Address</th>
                                     <th>Show Details</th>
 									<th>Edit</th>
+									<th>Print Label</th>
                                     <th>Delete</th>
                                     
                                 </tr>
@@ -74,7 +90,8 @@
                                     </td>
 									<td><a th:href="@{/referral-unit-details/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i>Details</a></td>
                                     <td><a th:href="@{/show-update-referral-unit-form/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-edit ml-2"></i></a></td>
-                                    <td><a th:href="@{/delete-referral-unit/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-times ml-2"></i></a></td>
+                                    <td><a th:href="@{print-ref-label/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-print"></i></i></a></td>
+									<td><a th:href="@{/delete-referral-unit/{id}(id=${referralUnit.id})}" class="btn btn-info"><i class="fas fa-user-times ml-2"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
