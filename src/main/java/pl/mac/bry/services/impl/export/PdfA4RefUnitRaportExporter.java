@@ -1,17 +1,21 @@
 package pl.mac.bry.services.impl.export;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.jws.soap.SOAPBinding.Style;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.Font.FontStyle;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfContentByte;
@@ -50,89 +54,78 @@ public class PdfA4RefUnitRaportExporter implements PdfExporter<List<ReferralUnit
 		PdfContentByte pdfContentByte = pdfWriter.getDirectContent();
 
 		Font font = new Font(FontFamily.HELVETICA, 5);
-
-		for (ReferralUnit referralUnit : referralUnits) {
-
-			if (referralUnit.getReferralUnitDetails() != null) {
-				table.resetColumnCount(16);
-				allColumn(table, font, referralUnit);
-				document.add(table);
-				document.close();
-
-			} else {
-				table.resetColumnCount(9);
-				referralColumnData(table, font, referralUnit);
-				document.add(table);
-				document.close();
-			}
-
+		Font boldFont = new Font(FontFamily.HELVETICA, 5, Font.BOLD);
+		PdfPCell cell = new PdfPCell();
+		
+		firstRowcolumnNames(table, font, cell);
+		table.deleteBodyRows();
+		
+		for (Iterator<ReferralUnit> iterator = referralUnits.iterator(); iterator.hasNext();) {
+			ReferralUnit referralUnit = (ReferralUnit) iterator.next();
+			referralColumnData(table, font, referralUnit);
 		}
 		
+		//for (ReferralUnit referralUnit : referralUnits) {
+		//		referralColumnData(table, font, referralUnit);	
+		//}
+		document.add(table);
+		document.close();
+		pdfContentByte.reset();
+		pdfWriter.close();
+		table.deleteBodyRows();
+		
 	}
-
-	protected void referralColumnData(PdfPTable table, Font font, ReferralUnit referralUnit) {
-		PdfPCell cell = new PdfPCell(new Phrase(String.valueOf(referralUnit.getId()), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getFullName(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getShortName(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getCountry(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getZipCode(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getCity(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getStreetPrefix().getDescription(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getStreet(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getBuildingNumber(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getApartmentNumber(), font));
+	
+	private void firstRowcolumnNames(PdfPTable table, Font boldFont, PdfPCell cell) {
+		System.out.println("0");
+		cell = new PdfPCell(new Phrase("Lp", boldFont));
+		cellFormatForFirstRow(table, cell);
+		cell = new PdfPCell(new Phrase("Full Name", boldFont));
+		cellFormatForFirstRow(table, cell);
+		cell = new PdfPCell(new Phrase("Short Name", boldFont));
+		cellFormatForFirstRow(table, cell);
+		cell = new PdfPCell(new Phrase("Country", boldFont));
+		cellFormatForFirstRow(table, cell);
+		cell = new PdfPCell(new Phrase("Zip Code", boldFont));
+		cellFormatForFirstRow(table, cell);
+		cell = new PdfPCell(new Phrase("City", boldFont));
+		cellFormatForFirstRow(table, cell);
+		cell = new PdfPCell(new Phrase("Street Prefix", boldFont));
+		cellFormatForFirstRow(table, cell);
+		cell = new PdfPCell(new Phrase("Street", boldFont));
+		cellFormatForFirstRow(table, cell);
+		cell = new PdfPCell(new Phrase("Building Number", boldFont));
+		cellFormatForFirstRow(table, cell);
+		cell = new PdfPCell(new Phrase("Apartment Number", boldFont));
+		cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
 		cell.setFixedHeight(15);
 		cell.setBorder(Rectangle.BOX);
 		cell.setColspan(2);
 		table.addCell(cell);
+		table.setHeaderRows(1);
 	}
 
-	protected void allColumn(PdfPTable table, Font font, ReferralUnit referralUnit) {
-		PdfPCell cell = new PdfPCell(new Phrase(String.valueOf(referralUnit.getId()), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getFullName(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getShortName(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getCountry(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getZipCode(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getCity(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getStreetPrefix().getDescription(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getStreet(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getBuildingNumber(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getAddress().getApartmentNumber(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getReferralUnitDetails().getEmail(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getReferralUnitDetails().getPhoneNumber(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getReferralUnitDetails().getResortBookNumber(), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(String.valueOf(referralUnit.getReferralUnitDetails().getNipNumber()), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(String.valueOf(referralUnit.getReferralUnitDetails().getRegonNumber()), font));
-		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(referralUnit.getReferralUnitDetails().getDeadline().getDescription(), font));
-		cell.setFixedHeight(15);
-		cell.setBorder(Rectangle.BOX);
-		cell.setColspan(2);
+	protected void cellFormatForFirstRow(PdfPTable table, PdfPCell cell) {
+		cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
 		table.addCell(cell);
 	}
+	
+
+	private void referralColumnData(PdfPTable table, Font font, ReferralUnit referralUnit) {
+
+		table.addCell(new Phrase(String.valueOf(referralUnit.getId()), font));
+		table.addCell(new Phrase(referralUnit.getFullName(), font));
+		table.addCell(new Phrase(referralUnit.getShortName(), font));
+		table.addCell(new Phrase(referralUnit.getAddress().getCountry(), font));
+		table.addCell(new Phrase(referralUnit.getAddress().getZipCode(), font));
+		table.addCell(new Phrase(referralUnit.getAddress().getCity(), font));
+		table.addCell(new Phrase(referralUnit.getAddress().getStreetPrefix().getDescription(), font));
+		table.addCell(new Phrase(referralUnit.getAddress().getStreet(), font));
+		table.addCell(new Phrase(referralUnit.getAddress().getBuildingNumber(), font));
+		table.addCell(new Phrase(referralUnit.getAddress().getApartmentNumber(), font));
+
+	}
+
 
 	@Override
 	public void setModel(List<ReferralUnit> t) {

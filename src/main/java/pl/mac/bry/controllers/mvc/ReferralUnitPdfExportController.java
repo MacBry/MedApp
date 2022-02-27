@@ -68,6 +68,7 @@ public class ReferralUnitPdfExportController {
         List<ReferralUnit> referralUnit = (List<ReferralUnit>) referralUnitService.getAllReferralUnits();
         a4Exporter.setModel(referralUnit);
         a4Exporter.export(response);
+        //a4Exporter.setModel(null);
 	}
 	
 	private void documentFormat(HttpServletResponse response) {
@@ -76,7 +77,7 @@ public class ReferralUnitPdfExportController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=sample_" + currentDateTime + ".pdf";
+        String headerValue = "attachment; filename=ref_unit_a4_raport_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 	}
 }

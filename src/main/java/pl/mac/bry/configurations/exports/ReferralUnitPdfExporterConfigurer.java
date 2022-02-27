@@ -36,7 +36,7 @@ public class ReferralUnitPdfExporterConfigurer {
 	@Bean
 	@Qualifier("REF-UNIT-A4-TABLE")
 	public PdfPTable pdfPTable() {
-		PdfPTable table = new PdfPTable(16);
+		PdfPTable table = new PdfPTable(10);
 		return table;
 	}
 }
