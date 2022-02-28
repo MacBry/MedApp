@@ -57,17 +57,18 @@ public class PdfA4RefUnitRaportExporter implements PdfExporter<List<ReferralUnit
 		Font boldFont = new Font(FontFamily.HELVETICA, 5, Font.BOLD);
 		PdfPCell cell = new PdfPCell();
 		
-		firstRowcolumnNames(table, font, cell);
+		firstRowcolumnNames(table, boldFont, cell);
 		table.deleteBodyRows();
 		
-		for (Iterator<ReferralUnit> iterator = referralUnits.iterator(); iterator.hasNext();) {
-			ReferralUnit referralUnit = (ReferralUnit) iterator.next();
-			referralColumnData(table, font, referralUnit);
+		if(!referralUnits.isEmpty()) {
+			for (Iterator<ReferralUnit> iterator = referralUnits.iterator(); iterator.hasNext();) {
+				ReferralUnit referralUnit = (ReferralUnit) iterator.next();
+				referralColumnData(table, font, referralUnit);
+			}
+		} else {
+			document.add(new Phrase("", boldFont));
 		}
 		
-		//for (ReferralUnit referralUnit : referralUnits) {
-		//		referralColumnData(table, font, referralUnit);	
-		//}
 		document.add(table);
 		document.close();
 		pdfContentByte.reset();
@@ -77,7 +78,6 @@ public class PdfA4RefUnitRaportExporter implements PdfExporter<List<ReferralUnit
 	}
 	
 	private void firstRowcolumnNames(PdfPTable table, Font boldFont, PdfPCell cell) {
-		System.out.println("0");
 		cell = new PdfPCell(new Phrase("Lp", boldFont));
 		cellFormatForFirstRow(table, cell);
 		cell = new PdfPCell(new Phrase("Full Name", boldFont));

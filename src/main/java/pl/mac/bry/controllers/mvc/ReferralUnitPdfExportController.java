@@ -43,7 +43,7 @@ public class ReferralUnitPdfExportController {
 
 	@GetMapping("/print-ref-label/{id}")
 	public void exportLabelToPdf(HttpServletResponse response, @PathVariable("id") long id) throws DocumentException, IOException {
-		documentFormat(response);
+		documentFormat(response, "ref_unit_label");
         
         ReferralUnit referralUnit = referralUnitService.findReferralUnitById(id);
         exporter.setModel(referralUnit);
@@ -54,7 +54,7 @@ public class ReferralUnitPdfExportController {
 
 	@GetMapping("/print-ref-label/all")
 	public void exportAllLabelToPdf(HttpServletResponse response) throws DocumentException, IOException {
-		documentFormat(response);
+		documentFormat(response, "ref_units_labels");
         
         List<ReferralUnit> referralUnit = (List<ReferralUnit>) referralUnitService.getAllReferralUnits();
         multiExporter.setModel(referralUnit);
@@ -63,7 +63,7 @@ public class ReferralUnitPdfExportController {
 	
 	@GetMapping("/ref-pdf-list/all")
 	public void exportAllReffUnitA4Pdf(HttpServletResponse response) throws DocumentException, IOException {
-		documentFormat(response);
+		documentFormat(response, "ref_unit_full_list");
         
         List<ReferralUnit> referralUnit = (List<ReferralUnit>) referralUnitService.getAllReferralUnits();
         a4Exporter.setModel(referralUnit);
@@ -71,13 +71,13 @@ public class ReferralUnitPdfExportController {
         //a4Exporter.setModel(null);
 	}
 	
-	private void documentFormat(HttpServletResponse response) {
+	private void documentFormat(HttpServletResponse response, String name) {
 		response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=ref_unit_a4_raport_" + currentDateTime + ".pdf";
+        String headerValue = "attachment; filename=" + name +"_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 	}
 }
