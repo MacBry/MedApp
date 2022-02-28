@@ -30,4 +30,6 @@ public interface SampleService {
 	void addSampleToPatient(long patientId, Sample sample);
 
 	void updatePatientSample(long patientId, Sample sample);
+
+	void addReferralUnitToSample(long referralUnitId, Sample sample);
 }

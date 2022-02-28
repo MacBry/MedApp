@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.mac.bry.entities.Patient;
+import pl.mac.bry.entities.ReferralUnit;
 import pl.mac.bry.entities.Sample;
 import pl.mac.bry.entities.enums.SampleType;
 import pl.mac.bry.repositories.SampleRepository;
 import pl.mac.bry.services.PatientService;
+import pl.mac.bry.services.ReferralUnitService;
 import pl.mac.bry.services.SampleService;
 
 @Service
@@ -21,12 +23,16 @@ public class SampleServiceImpl implements SampleService {
 	
 	private SampleRepository sampleRepository;
 	private PatientService patientService;
+	private ReferralUnitService referralUnitService;
 	
 	@Autowired
-	public SampleServiceImpl(SampleRepository sampleRepository, PatientService patientService) {
+	public SampleServiceImpl(SampleRepository sampleRepository,
+			PatientService patientService,
+			ReferralUnitService referralUnitService) {
 		super();
 		this.sampleRepository = sampleRepository;
 		this.patientService = patientService;
+		this.referralUnitService = referralUnitService;
 	}
 
 	@Override
@@ -95,6 +101,14 @@ public class SampleServiceImpl implements SampleService {
 		Patient patient = patientService.findPatientById(patientId);
 		sample.setPatient(patient);
 		patient.addPatientSample(sample);
+		sampleRepository.save(sample);
+	}
+	
+	@Override
+	@Audit(action =  "SampleServiceImpl.addReferralUnitToSample()")
+	public void addReferralUnitToSample(long referralUnitId, Sample sample) {
+		ReferralUnit referralUnit = referralUnitService.findReferralUnitById(referralUnitId);
+		sample.setReferralUnit(referralUnit);
 		sampleRepository.save(sample);
 	}
 

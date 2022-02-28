@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itextpdf.text.DocumentException;
 
+import pl.mac.bry.entities.ReferralUnit;
 import pl.mac.bry.entities.Sample;
+import pl.mac.bry.services.ReferralUnitService;
 import pl.mac.bry.services.SampleService;
 import pl.mac.bry.util.SampleLabelPdfExporter;
 import pl.mac.bry.util.StringToDateTimeConverter;
@@ -29,14 +32,18 @@ import pl.mac.bry.util.StringToDateTimeConverter;
 public class SampleController {
 	
 	private SampleService sampleService;
+	private ReferralUnitService referralUnitService;
 	private long patientId;
 	private SampleLabelPdfExporter sampleLabelPdfExporter;
 
 	@Autowired
-	public SampleController(SampleService sampleService,SampleLabelPdfExporter sampleLabelPdfExporter) {
+	public SampleController(SampleService sampleService,
+			SampleLabelPdfExporter sampleLabelPdfExporter,
+			ReferralUnitService referralUnitService) {
 		super();
 		this.sampleService = sampleService;
 		this.sampleLabelPdfExporter =  sampleLabelPdfExporter;
+		this.referralUnitService = referralUnitService;
 	}
 	
 	@GetMapping("/patient-samples/{id}")
@@ -62,7 +69,9 @@ public class SampleController {
 	}
 	
 	@GetMapping("/show-add-sample-form")
-	public String showAddSampleForm(Sample sample) {
+	public String showAddSampleForm(Sample sample, Model model) {
+		List<ReferralUnit> units = (List<ReferralUnit>) referralUnitService.getAllReferralUnits();
+		model.addAttribute("units", units);
 		return "add-sample-form";
 	}
 	
@@ -74,8 +83,6 @@ public class SampleController {
 			return "add-sample-form";
 		}
 		sample.setDonationDateTime(StringToDateTimeConverter.convert(date));
-		LocalDateTime now = LocalDateTime.now();
-		System.out.println(now);
 		sample.setRejestrationDateTime(LocalDateTime.now());
 		model.addAttribute(sample);
 		sampleService.addSampleToPatient(patientId, sample);
@@ -86,6 +93,8 @@ public class SampleController {
 	@GetMapping("/show-update-sample-form/{id}")
 	public String showUpadateForm(@PathVariable("id") long id, Model model) {
 		Sample sample = sampleService.findSampleById(id);
+		List<ReferralUnit> units = (List<ReferralUnit>) referralUnitService.getAllReferralUnits();
+		model.addAttribute("units", units);
 		model.addAttribute("sample", sample);
 		return "update-sample";
 	}

@@ -38,10 +38,18 @@
                                 	</option>
                                 </select>           
                             </div>
-                            
-                           
-                            	
-                            
+                        </div>
+                        <div class ="row">
+                            <div class="form-group col-md-6">
+                                <label for="sampleType" class="col-form-label">Sample Type</label>
+                                <select class="form-control" th:field="*{referralUnit}">
+                                <option th:each="unit : ${units}"
+                                	
+                                	th:value="${unit.id}"
+                                	th:text="${unit.getFullName()}">
+                                	</option>
+                                </select>           
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mt-5">
