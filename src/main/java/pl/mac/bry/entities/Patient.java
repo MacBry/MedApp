@@ -20,6 +20,8 @@ import org.hibernate.annotations.FetchMode;
 
 
 import lombok.Data;
+import pl.mac.bry.entities.enums.ABOBloodGroup;
+import pl.mac.bry.entities.enums.RhDFactor;
 
 @Entity
 @Data
@@ -39,6 +41,10 @@ public class Patient implements Serializable {
 	private String lastName;
 	
 	private String pesel;
+	
+	private ABOBloodGroup aboGroup;
+	
+	private RhDFactor rhdFactor;
 	
 	@OneToOne
 	private PatientDetails  patientDetails;

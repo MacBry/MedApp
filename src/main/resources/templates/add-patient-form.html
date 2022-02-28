@@ -38,9 +38,32 @@
                                 <label for="pesel" class="col-form-label">PESEL</label>
                                 <input type="text" th:field="*{pesel}" class="form-control" id="pesel" placeholder="PESEL">
                                 <span th:if="${#fields.hasErrors('pesel')}" th:errors="*{pesel}" class="text-info"></span>
-                            	</div>
+                            </div>
                             	
                             
+                        </div>
+                        <div class="row">
+
+                            <div class="form-group col-md-6">
+                                <label for="ABO" class="col-form-label">ABO Group</label>
+                                <select class="form-control" th:field="*{aboGroup}">
+                                <option th:each="ABOBloodGroup : ${T(pl.mac.bry.entities.enums.ABOBloodGroup).values()}"
+                                	
+                                	th:value="${ABOBloodGroup}"
+                                	th:text="${ABOBloodGroup.getDescription()}">
+                                	</option>
+                                </select>           
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="RhD" class="col-form-label">RhD Factor</label>
+                                <select class="form-control" th:field="*{rhdFactor}">
+                                <option th:each="RhDFactor : ${T(pl.mac.bry.entities.enums.RhDFactor).values()}"
+                                	
+                                	th:value="${RhDFactor}"
+                                	th:text="${RhDFactor.getDescription()}">
+                                	</option>
+                                </select>           
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mt-5">
