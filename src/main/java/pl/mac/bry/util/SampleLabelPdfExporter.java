@@ -63,7 +63,7 @@ public class SampleLabelPdfExporter {
 		//first row
 		String name = sample.getPatient().getFirstName() + " " + sample.getPatient().getLastName();
 		String pesel = sample.getPatient().getPesel();
-		String refeNumber =  "88-" + sample.getId();
+		String refeNumber =  "88-" + sample.getReferralUnit().getId();
 		PdfPCell cell = new PdfPCell(new Phrase(name, new Font(FontFamily.HELVETICA, 8)));
 		cell.setFixedHeight(15);
 		cell.setBorder(Rectangle.BOX);

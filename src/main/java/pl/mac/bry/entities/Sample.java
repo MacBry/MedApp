@@ -41,7 +41,7 @@ public class Sample implements Serializable {
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
 	
-	@OneToOne
+	@ManyToOne
 	private ReferralUnit referralUnit;
 
 }
