@@ -121,5 +121,7 @@ public class SampleServiceImpl implements SampleService {
 		patientService.updatePatient(patient);
 	}
 	
-
+	public Iterable<Sample> findSampleByRefUnit() {
+		List<ReferralUnit> 
+	}
 }
