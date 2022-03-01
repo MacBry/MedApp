@@ -65,10 +65,13 @@ public class SampleLabelPdfExporter {
 		String pesel = sample.getPatient().getPesel();
 		String refeNumber =  "88-" + sample.getReferralUnit().getId();
 		PdfPCell cell = new PdfPCell(new Phrase(name, new Font(FontFamily.HELVETICA, 8)));
+		
+		table.addCell(cell);
+		cell = new PdfPCell(new Phrase(sample.getPatient().getAboGroup().getDescription(),new Font( FontFamily.HELVETICA, 8)));
+		table.addCell(cell);
 		cell.setFixedHeight(15);
 		cell.setBorder(Rectangle.BOX);
 		cell.setColspan(2);
-		table.addCell(cell);
 		
 		//second row
 		cell = new PdfPCell(new Phrase(pesel, new Font(FontFamily.HELVETICA, 8)));
