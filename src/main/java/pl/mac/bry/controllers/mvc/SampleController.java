@@ -38,18 +38,18 @@ public class SampleController {
 	private ReferralUnitService referralUnitService;
 	private long patientId;
 	private SampleLabelPdfExporter sampleLabelPdfExporter;
-	private PdfExporter<List<List<Sample>>> exporter;
+	private PdfExporter<List<Sample>> sampleRaportPdfExporter;
 
 	@Autowired
 	public SampleController(SampleService sampleService,
 			SampleLabelPdfExporter sampleLabelPdfExporter,
 			ReferralUnitService referralUnitService,
-			@Qualifier("PDF-A4-SAMPLE-RAPORT-EXPORTER") PdfExporter<List<List<Sample>>> exporter) {
+			@Qualifier("PDF-A4-SAMPLE-RAPORT-EXPORTER") PdfExporter<List <Sample>> sampleRaportPdfExporter) {
 		super();
 		this.sampleService = sampleService;
 		this.sampleLabelPdfExporter =  sampleLabelPdfExporter;
 		this.referralUnitService = referralUnitService;
-		this.allRefSamples = exporter;
+		this.sampleRaportPdfExporter = sampleRaportPdfExporter;
 	}
 	
 	@GetMapping("/patient-samples/{id}")
@@ -129,7 +129,6 @@ public class SampleController {
         
         Sample sample = sampleService.findSampleById(id);
         sampleLabelPdfExporter.setSample(sample);
-        System.out.println(sample.getRejestrationDateTime());
         sampleLabelPdfExporter.export(response);
 	}
 	
@@ -143,8 +142,9 @@ public class SampleController {
         String headerValue = "attachment; filename=sample_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
         
-       
-
+       List<Sample> samples =(List<Sample>) sampleService.getAllSamples();
+       sampleRaportPdfExporter.setModel(samples);
+       sampleRaportPdfExporter.export(response);
 	}
 	
 	@GetMapping("/delete-sample/{id}")

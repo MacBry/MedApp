@@ -3,6 +3,8 @@ package pl.mac.bry.services.impl.export;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +21,6 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
 import pl.mac.bry.entities.Sample;
 import pl.mac.bry.services.export.PdfDocumentService;
 import pl.mac.bry.services.export.PdfExporter;
@@ -27,11 +28,11 @@ import pl.mac.bry.services.export.PdfTableService;
 
 @Service
 @Qualifier("PDF-A4-SAMPLE-RAPORT-EXPORTER")
-public class PdfA4SampleRaportExporter implements PdfExporter<List<List<Sample>>> {
+public class PdfA4SampleRaportExporter implements PdfExporter<List<Sample>> {
 
 	private PdfDocumentService documentService;
 	private PdfTableService tableService;
-	private List<List<Sample>> allReffUnitsSamples;
+	private List<Sample> allReffUnitsSamples;
 
 	public PdfA4SampleRaportExporter(@Qualifier("A4-DOCUMENT") PdfDocumentService documentService,
 			@Qualifier("PF-A4-SAMPLE-RAPORT") PdfTableService tableService) {
@@ -50,44 +51,60 @@ public class PdfA4SampleRaportExporter implements PdfExporter<List<List<Sample>>
 
 		Font font = new Font(FontFamily.HELVETICA, 5);
 		Font bold = new Font(FontFamily.HELVETICA, 5, Font.BOLD);
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 
 		PdfPCell cell = new PdfPCell();
-
-		for (List<Sample> singleList : allReffUnitsSamples) {
-			for (Sample sample : singleList) {
-				singleRefUnitPatientsSamples(table, font, sample, dateFormatter);
-				summaryForSinleRef(table, bold, singleList);
+		
+		for (Sample sample : allReffUnitsSamples) {
+			for(Long refIndex : preparationOfList(allReffUnitsSamples)) {
+				int i = 0;
+				if(Long.valueOf(sample.getReferralUnit().getId()).equals(refIndex)) {
+					i = i +1;
+					singleRefUnitPatientsSamples(table, font, sample, dateFormatter);
+					document.add(table);
+				}
+				//summaryForSinleRef(table, bold, i);
 			}
-			document.add(table);
 			table.deleteBodyRows();
 		}
+		
+		
 		document.add(table);
 		table.deleteBodyRows();
 		document.close();
 		pdfContentByte.closeMCBlock(cell);
 	}
 
+	private ArrayList<Long> preparationOfList(List<Sample>allReffUnitsSamples) {
+		ArrayList<Long> indexList = new ArrayList<> ();
+
+		for (Sample sample : allReffUnitsSamples) {
+			indexList.add(sample.getReferralUnit().getId());
+		}
+		
+		LinkedHashSet<Long> hashSet = new LinkedHashSet<>(indexList);
+		return  new ArrayList<>(hashSet);
+	}
 
 	private void singleRefUnitPatientsSamples(PdfPTable table, Font font, Sample sample, DateFormat dateFormatter) {
-		table.resetColumnCount(7);
-		table.addCell(new Phrase("88-" + String.valueOf(sample.getReferralUnit().getAddress().getId()), font));
+		table.resetColumnCount(5);
+		table.addCell(new Phrase("88-" + String.valueOf(sample.getReferralUnit().getId()), font));
 		table.addCell(new Phrase(sample.getReferralUnit().getAddress().getCity(), font));
 		table.addCell(new Phrase(sample.getPatient().getLastName() + " " + sample.getPatient().getFirstName(), font));
 		table.addCell(new Phrase(sample.getPatient().getPesel(), font));
 		table.addCell(new Phrase(sample.getPatient().getAboGroup().getDescription() + " "
 				+ sample.getPatient().getRhdFactor().getDescription(), font));
-		table.addCell(new Phrase(dateFormatter.format(sample.getDonationDateTime()), font));
-		table.addCell(new Phrase(dateFormatter.format(sample.getRejestrationDateTime()), font));
+		//table.addCell(new Phrase(dateFormatter.format(sample.getDonationDateTime()).toString(), font));
+		//table.addCell(new Phrase(dateFormatter.format(sample.getRejestrationDateTime().toString()), font));
 	}
 
-	private void summaryForSinleRef(PdfPTable table, Font font, List<Sample> singleReffUnitSamples) {
+	private void summaryForSinleRef(PdfPTable table, Font font, int count) {
 		table.resetColumnCount(1);
-		table.addCell(new Phrase("Razem: " + singleReffUnitSamples.size()));
+		table.addCell(new Phrase("Summary:" + count, font));
 	}
 
 	@Override
-	public void setModel(List<List<Sample>> t) {
+	public void setModel(List<Sample> t) {
 		this.allReffUnitsSamples = t;
 
 	}
