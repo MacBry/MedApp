@@ -24,7 +24,6 @@ import com.itextpdf.text.DocumentException;
 
 import pl.mac.bry.entities.ReferralUnit;
 import pl.mac.bry.entities.Sample;
-import pl.mac.bry.entities.enums.SampleType;
 import pl.mac.bry.services.ReferralUnitService;
 import pl.mac.bry.services.SampleService;
 import pl.mac.bry.services.export.PdfExporter;

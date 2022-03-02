@@ -55,7 +55,7 @@ public class PdfA4RefUnitRaportExporter implements PdfExporter<List<ReferralUnit
 		Font boldFont = new Font(FontFamily.HELVETICA, 5, Font.BOLD);
 		PdfPCell cell = new PdfPCell();
 		
-		firstRowcolumnNames(table, boldFont, cell);
+		firstRowColumnNames(table, boldFont, cell);
 		table.deleteBodyRows();
 		
 		if(!referralUnits.isEmpty()) {
@@ -75,7 +75,7 @@ public class PdfA4RefUnitRaportExporter implements PdfExporter<List<ReferralUnit
 		
 	}
 	
-	private void firstRowcolumnNames(PdfPTable table, Font boldFont, PdfPCell cell) {
+	private void firstRowColumnNames(PdfPTable table, Font boldFont, PdfPCell cell) {
 		cell = new PdfPCell(new Phrase("Lp", boldFont));
 		cellFormatForFirstRow(table, cell);
 		cell = new PdfPCell(new Phrase("Full Name", boldFont));
