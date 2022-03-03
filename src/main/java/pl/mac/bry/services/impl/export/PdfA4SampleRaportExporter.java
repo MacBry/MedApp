@@ -3,6 +3,9 @@ package pl.mac.bry.services.impl.export;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,6 +25,8 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import pl.mac.bry.entities.ReferralUnit;
 import pl.mac.bry.entities.Sample;
 import pl.mac.bry.services.export.PdfDocumentService;
 import pl.mac.bry.services.export.PdfExporter;
@@ -52,7 +57,10 @@ public class PdfA4SampleRaportExporter implements PdfExporter<List<Sample>> {
 
 		Font font = new Font(FontFamily.HELVETICA, 5);
 		Font bold = new Font(FontFamily.HELVETICA, 5, Font.BOLD);
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss:ms");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		
+		Collections.sort(allReffUnitsSamples, Comparator.comparing(Sample::getReferralUnit, 
+				Comparator.comparing(ReferralUnit::getId)));
 
 		PdfPCell cell = new PdfPCell();
 		int i = 0;
@@ -62,8 +70,9 @@ public class PdfA4SampleRaportExporter implements PdfExporter<List<Sample>> {
 		
 		if(!allReffUnitsSamples.isEmpty()) {
 			for (Iterator<Sample> iterator = allReffUnitsSamples.iterator(); iterator.hasNext();) {
-				i=+1;
+				
 				Sample sample = (Sample) iterator.next();
+				i=i+1;
 				sampleColumnData(table, font, sample, dateFormatter, i);
 				
 			}
@@ -95,6 +104,7 @@ public class PdfA4SampleRaportExporter implements PdfExporter<List<Sample>> {
 	}
 
 	private void firstRowColumnNames(PdfPTable table, Font font, PdfPCell cell) {
+		table.resetColumnCount(8);
 		cell = new PdfPCell(new Phrase("Lp", font));
 		cellFormatForFirstRow(table, cell);
 		cell = new PdfPCell(new Phrase("Referral Unit Number", font));
