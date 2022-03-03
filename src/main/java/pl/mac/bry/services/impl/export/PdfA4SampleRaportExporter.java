@@ -71,26 +71,26 @@ public class PdfA4SampleRaportExporter implements PdfExporter<List<Sample>> {
 			for (Sample sample : allReffUnitsSamples) {
 				int i = 0;
 				for(Long index : indexList) {
-										
+					System.out.println("index: " +index + " sample: " +sample.getId());
+					PdfPTable table1 = tableService.createPdfPTable();	
+					firstRowColumnNames(table1, bold, cell);
+					table1.deleteBodyRows();
 					if(Long.valueOf(sample.getReferralUnit().getId()).equals(index)) {
 						
-						PdfPTable table1 = tableService.createPdfPTable();
-						firstRowColumnNames(table1, bold, cell);
-						table1.deleteBodyRows();
 						i = i +1;
 						
 						sampleColumnData(table1, font, sample, dateFormatter, i);	
-						document.add(table1);
+						
 						
 					}
-					table.deleteBodyRows();
+					document.add(table1);
 				}
 			}
-			document.close();
-			pdfContentByte.reset();
-			pdfWriter.close();
+			
 		}
-
+		document.close();
+		pdfContentByte.reset();
+		pdfWriter.close();
 		
 		/**
 		firstRowColumnNames(table, bold, cell);
