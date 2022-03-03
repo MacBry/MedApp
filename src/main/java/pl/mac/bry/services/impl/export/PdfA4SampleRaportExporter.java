@@ -3,6 +3,7 @@ package pl.mac.bry.services.impl.export;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -58,13 +59,40 @@ public class PdfA4SampleRaportExporter implements PdfExporter<List<Sample>> {
 		Font font = new Font(FontFamily.HELVETICA, 5);
 		Font bold = new Font(FontFamily.HELVETICA, 5, Font.BOLD);
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		List<Long> indexList = createRefIndexList(allReffUnitsSamples);
 		
 		Collections.sort(allReffUnitsSamples, Comparator.comparing(Sample::getReferralUnit, 
 				Comparator.comparing(ReferralUnit::getId)));
 
 		PdfPCell cell = new PdfPCell();
-		int i = 0;
 		
+		
+		if(!allReffUnitsSamples.isEmpty()) {
+			for (Sample sample : allReffUnitsSamples) {
+				int i = 0;
+				for(Long index : indexList) {
+										
+					if(Long.valueOf(sample.getReferralUnit().getId()).equals(index)) {
+						
+						PdfPTable table1 = tableService.createPdfPTable();
+						firstRowColumnNames(table1, bold, cell);
+						table1.deleteBodyRows();
+						i = i +1;
+						
+						sampleColumnData(table1, font, sample, dateFormatter, i);	
+						document.add(table1);
+						
+					}
+					table.deleteBodyRows();
+				}
+			}
+			document.close();
+			pdfContentByte.reset();
+			pdfWriter.close();
+		}
+
+		
+		/**
 		firstRowColumnNames(table, bold, cell);
 		table.deleteBodyRows();
 		
@@ -85,7 +113,17 @@ public class PdfA4SampleRaportExporter implements PdfExporter<List<Sample>> {
 		pdfContentByte.reset();
 		pdfWriter.close();
 		table.deleteBodyRows();
-
+	**/
+	}
+	
+	private List<Long> createRefIndexList(List <Sample> sampleList) {
+		List<Long> list = new ArrayList<Long>();
+		for (Sample sample : sampleList) {
+			if(!list.contains(sample.getReferralUnit().getId())) {
+				list.add(sample.getReferralUnit().getId());
+			}
+		}
+		return list;
 	}
 
 	
