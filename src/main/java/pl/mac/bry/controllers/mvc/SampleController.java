@@ -131,7 +131,7 @@ public class SampleController {
         sampleLabelPdfExporter.export(response);
 	}
 	
-	@GetMapping("/print-sample-raport/")
+	@GetMapping("/print-sample-raport")
 	public void exportRaport(HttpServletResponse response) throws DocumentException, IOException {
 		response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");

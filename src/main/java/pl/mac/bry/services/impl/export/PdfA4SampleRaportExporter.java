@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -59,61 +57,39 @@ public class PdfA4SampleRaportExporter implements PdfExporter<List<Sample>> {
 		Font font = new Font(FontFamily.HELVETICA, 5);
 		Font bold = new Font(FontFamily.HELVETICA, 5, Font.BOLD);
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-		List<Long> indexList = createRefIndexList(allReffUnitsSamples);
+		PdfPCell cell = new PdfPCell();	
 		
+		List<Long> indexList = createRefIndexList(allReffUnitsSamples);
 		Collections.sort(allReffUnitsSamples, Comparator.comparing(Sample::getReferralUnit, 
 				Comparator.comparing(ReferralUnit::getId)));
+		
+		table.deleteBodyRows();
+		
+		if(!indexList.isEmpty())
+		{
+			for(Long index : indexList) {
 
-		PdfPCell cell = new PdfPCell();
-		
-		
-		if(!allReffUnitsSamples.isEmpty()) {
-			for (Sample sample : allReffUnitsSamples) {
-				int i = 0;
-				for(Long index : indexList) {
-					System.out.println("index: " +index + " sample: " +sample.getId());
-					PdfPTable table1 = tableService.createPdfPTable();	
-					firstRowColumnNames(table1, bold, cell);
-					table1.deleteBodyRows();
+				firstRowColumnNames(table, bold, cell);
+				
+				int i =0;
+				for(Sample sample : allReffUnitsSamples) {
 					if(Long.valueOf(sample.getReferralUnit().getId()).equals(index)) {
-						
-						i = i +1;
-						
-						sampleColumnData(table1, font, sample, dateFormatter, i);	
-						
-						
+						i=i+1;
+						sampleColumnData(table, font, sample, dateFormatter, i);
 					}
-					document.add(table1);
 				}
 			}
 			
+		}else {
+			bold.setSize(18);
+			document.add(new Phrase("NO DATA", bold));
 		}
-		document.close();
-		pdfContentByte.reset();
-		pdfWriter.close();
-		
-		/**
-		firstRowColumnNames(table, bold, cell);
-		table.deleteBodyRows();
-		
-		if(!allReffUnitsSamples.isEmpty()) {
-			for (Iterator<Sample> iterator = allReffUnitsSamples.iterator(); iterator.hasNext();) {
-				
-				Sample sample = (Sample) iterator.next();
-				i=i+1;
-				sampleColumnData(table, font, sample, dateFormatter, i);
-				
-			}
-		} else {
-			document.add(new Phrase("", bold));
-		}
-		
 		document.add(table);
 		document.close();
 		pdfContentByte.reset();
 		pdfWriter.close();
-		table.deleteBodyRows();
-	**/
+		table.deleteBodyRows();	
+		
 	}
 	
 	private List<Long> createRefIndexList(List <Sample> sampleList) {
@@ -164,9 +140,10 @@ public class PdfA4SampleRaportExporter implements PdfExporter<List<Sample>> {
 		cell.setColspan(2);
 		table.addCell(cell);
 		table.setHeaderRows(1);
+
 	}
 	
-	protected void cellFormatForFirstRow(PdfPTable table, PdfPCell cell) {
+	private void cellFormatForFirstRow(PdfPTable table, PdfPCell cell) {
 		cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
 		table.addCell(cell);
 	}

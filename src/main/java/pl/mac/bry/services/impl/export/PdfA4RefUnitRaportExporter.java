@@ -64,7 +64,8 @@ public class PdfA4RefUnitRaportExporter implements PdfExporter<List<ReferralUnit
 				referralColumnData(table, font, referralUnit);
 			}
 		} else {
-			document.add(new Phrase("", boldFont));
+			boldFont.setSize(18);
+			document.add(new Phrase("NO DATA", boldFont));
 		}
 		
 		document.add(table);
