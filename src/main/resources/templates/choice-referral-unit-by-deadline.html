@@ -24,7 +24,7 @@
 
                         <div class="form-group col-md-6">
                                 <label for="deadline" class="col-form-label">Deadline</label>
-                                <select class="form-control" th:field="*{deadline}">
+                                <select class="form-control" name="deadline">
                                 <option th:each="deadline : ${T(pl.mac.bry.entities.enums.Deadline).values()}"
                                 	
                                 	th:value="${deadline}"
@@ -34,7 +34,7 @@
                             </div>
                             	
                         <div class="row">
-                           <a th:href="@{//ref-pdf-list/{deadline}/{deadline}(deadline=${deadline})}" class="btn btn-info"><i class="fas fa-print"></i></i>Edit</a></td>
+                           <a th:href="@{//ref-pdf-list/" class="btn btn-info"><i class="fas fa-print"></i></i>Print</a></td>
                         </div>    
                 </div>
             </div>
