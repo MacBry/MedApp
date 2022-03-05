@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itextpdf.text.DocumentException;
 
 import pl.mac.bry.entities.ReferralUnit;
+import pl.mac.bry.entities.enums.Deadline;
 import pl.mac.bry.services.ReferralUnitService;
 import pl.mac.bry.services.export.PdfExporter;
 
@@ -68,7 +70,22 @@ public class ReferralUnitPdfExportController {
         List<ReferralUnit> referralUnit = (List<ReferralUnit>) referralUnitService.getAllReferralUnits();
         a4Exporter.setModel(referralUnit);
         a4Exporter.export(response);
-        //a4Exporter.setModel(null);
+
+	}
+	
+	@GetMapping("/show-choice-referral-unit-by-deadline")
+	public String showAddReferralUnitForm(ReferralUnit referralUnit) {
+		return "choice-referral-unit-by-deadline";
+	}
+	
+	@GetMapping("/ref-pdf-list/")
+	public void exportReffUnitA4PdfbyDeadline(HttpServletResponse response, @RequestParam Deadline deadline ) throws DocumentException, IOException {
+		documentFormat(response, "ref_unit_full_list");
+        
+        List<ReferralUnit> referralUnit = (List<ReferralUnit>) referralUnitService.findReferralUnitByDeadline(deadline);
+        a4Exporter.setModel(referralUnit);
+        a4Exporter.export(response);
+
 	}
 	
 	private void documentFormat(HttpServletResponse response, String name) {

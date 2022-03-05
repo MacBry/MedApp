@@ -1,17 +1,11 @@
 package pl.mac.bry.controllers.mvc;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,15 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.itextpdf.text.DocumentException;
-
 import pl.mac.bry.entities.ReferralUnit;
 import pl.mac.bry.entities.Sample;
-import pl.mac.bry.entities.enums.SampleType;
 import pl.mac.bry.services.ReferralUnitService;
 import pl.mac.bry.services.SampleService;
-import pl.mac.bry.services.export.PdfExporter;
-import pl.mac.bry.util.SampleLabelPdfExporter;
 import pl.mac.bry.util.StringToDateTimeConverter;
 
 @Controller
@@ -37,19 +26,15 @@ public class SampleController {
 	private SampleService sampleService;
 	private ReferralUnitService referralUnitService;
 	private long patientId;
-	private SampleLabelPdfExporter sampleLabelPdfExporter;
-	private PdfExporter<List<Sample>> sampleRaportPdfExporter;
+
 
 	@Autowired
 	public SampleController(SampleService sampleService,
-			SampleLabelPdfExporter sampleLabelPdfExporter,
-			ReferralUnitService referralUnitService,
-			@Qualifier("PDF-A4-SAMPLE-RAPORT-EXPORTER") PdfExporter<List <Sample>> sampleRaportPdfExporter) {
+			ReferralUnitService referralUnitService) {
 		super();
 		this.sampleService = sampleService;
-		this.sampleLabelPdfExporter =  sampleLabelPdfExporter;
 		this.referralUnitService = referralUnitService;
-		this.sampleRaportPdfExporter = sampleRaportPdfExporter;
+
 	}
 	
 	@GetMapping("/patient-samples/{id}")
@@ -117,35 +102,7 @@ public class SampleController {
 		return "redirect:/patient-samples/{id}";
 	}
 	
-	@GetMapping("/print-sample-label/{id}")
-	public void exportLabelToPdf(HttpServletResponse response, @PathVariable("id") long id) throws DocumentException, IOException {
-		response.setContentType("application/pdf");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date());
-         
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=sample_" + currentDateTime + ".pdf";
-        response.setHeader(headerKey, headerValue);
-        
-        Sample sample = sampleService.findSampleById(id);
-        sampleLabelPdfExporter.setSample(sample);
-        sampleLabelPdfExporter.export(response);
-	}
 	
-	@GetMapping("/print-sample-raport/")
-	public void exportRaport(HttpServletResponse response) throws DocumentException, IOException {
-		response.setContentType("application/pdf");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date());
-         
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=sample_" + currentDateTime + ".pdf";
-        response.setHeader(headerKey, headerValue);
-        
-       List<Sample> samples =(List<Sample>) sampleService.getAllSamples();
-       sampleRaportPdfExporter.setModel(samples);
-       sampleRaportPdfExporter.export(response);
-	}
 	
 	@GetMapping("/delete-sample/{id}")
 	public String deleteSample (@PathVariable("id") long id) {

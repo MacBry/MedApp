@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 
 import pl.mac.bry.entities.ReferralUnit;
+import pl.mac.bry.entities.enums.Deadline;
 import pl.mac.bry.repositories.ReferralUnitRepository;
 import pl.mac.bry.services.ReferralUnitService;
 
@@ -91,4 +92,17 @@ public class ReferralUnitServiceImpl implements ReferralUnitService {
 				
 	}
 
+	@Override
+	@Audit(action = "ReferralUnitServiceImpl.findReferralUnitByDeadline()")
+	public Iterable<ReferralUnit> findReferralUnitByDeadline(Deadline deadline) {
+		List<ReferralUnit> allReferralUnits = (List<ReferralUnit>)getAllReferralUnits();
+		List<ReferralUnit> findReferralUnits = new ArrayList<ReferralUnit>();
+		
+		for (ReferralUnit refUnit : allReferralUnits) {
+			if(refUnit.getReferralUnitDetails().getDeadline().equals(deadline)) {
+				findReferralUnits.add(refUnit);
+			}
+		}
+		return findReferralUnits;
+	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import pl.mac.bry.entities.ReferralUnit;
+import pl.mac.bry.entities.enums.Deadline;
 
 public interface ReferralUnitService {
 	
@@ -24,5 +25,7 @@ public interface ReferralUnitService {
 	Iterable<ReferralUnit> findReferralUnitByPartofFullName(String partOfFullName);
 	
 	<T, O> List<T> getValues(Class<T> clazz, List<O> listToExtractFrom, Function<O, T> extractor);
+
+	Iterable<ReferralUnit> findReferralUnitByDeadline(Deadline deadline);
 	
 }
