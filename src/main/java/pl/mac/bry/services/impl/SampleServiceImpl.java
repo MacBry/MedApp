@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import pl.mac.bry.entities.Patient;
 import pl.mac.bry.entities.ReferralUnit;
 import pl.mac.bry.entities.Sample;
+import pl.mac.bry.entities.dto.SampleDTOMapper;
 import pl.mac.bry.entities.enums.SampleType;
 import pl.mac.bry.repositories.SampleRepository;
 import pl.mac.bry.services.PatientService;
@@ -24,15 +25,18 @@ public class SampleServiceImpl implements SampleService {
 	private SampleRepository sampleRepository;
 	private PatientService patientService;
 	private ReferralUnitService referralUnitService;
+	private SampleDTOMapper sampleDTOMapper;
 	
 	@Autowired
 	public SampleServiceImpl(SampleRepository sampleRepository,
 			PatientService patientService,
-			ReferralUnitService referralUnitService) {
+			ReferralUnitService referralUnitService,
+			SampleDTOMapper sampleDTOMapper) {
 		super();
 		this.sampleRepository = sampleRepository;
 		this.patientService = patientService;
 		this.referralUnitService = referralUnitService;
+		this.sampleDTOMapper = sampleDTOMapper;
 	}
 
 	@Override
